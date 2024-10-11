@@ -1,6 +1,9 @@
 using CLINICA_API.Areas.General.Helpers;
 using CLINICA_API.Areas.Medico.Data;
 using CLINICA_API.Areas.Medico.Service;
+using CLINICA_API.Areas.Usuario.Controller;
+using CLINICA_API.Areas.Usuario.Data;
+using CLINICA_API.Areas.Usuario.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +16,13 @@ builder.Services.AddSwaggerGen();
 
 //Service
 builder.Services.AddScoped<MedicoService>();
+builder.Services.AddScoped<UsuarioService>();
 //Data
 builder.Services.AddScoped<MedicoData>();
+builder.Services.AddScoped<UsuarioData>();
 //Conection
 builder.Services.AddScoped<ServiceConnection>();
+builder.Services.AddScoped<UsuarioController>();
 
 var app = builder.Build();
 

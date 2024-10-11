@@ -1,5 +1,6 @@
 ﻿using CLINICA_API.Areas.General.Helpers;
 using Dapper;
+using Newtonsoft.Json;
 
 namespace CLINICA_API.Areas.Medico.Data
 {
@@ -26,8 +27,8 @@ namespace CLINICA_API.Areas.Medico.Data
         }
         public string GuardarEditar(string jsonmedico) {
             var parameters = new DynamicParameters();
-            parameters.Add("@jsonmedico", jsonmedico);
-            return _connection.MetodoRespuestasql("medico.GuardarEditarMedico", parameters,50);
+            parameters.Add("@jsonmedico",jsonmedico);
+            return _connection.MetodoRespuestasql("medico.GuardarEditarMedico", parameters, 50);
         }
 
 

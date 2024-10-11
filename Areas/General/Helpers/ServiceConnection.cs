@@ -2,6 +2,7 @@
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 namespace CLINICA_API.Areas.General.Helpers
@@ -58,18 +59,28 @@ namespace CLINICA_API.Areas.General.Helpers
             try
             {
                 string parametrosalida = "@respuesta";
+                string respuesta = "";
                 using (var connection = new SqlConnection(_connection))
                 {
-                    // Asignar el tamaño y tipo al parámetro de salida
-                    parametros.Add(parametrosalida, dbType: DbType.String, size: sizeParametroSalida, direction: ParameterDirection.Output);
-
-                    // Ejecutar el procedimiento almacenado
-                    var result =  connection.QueryAsync(procedimiento, parametros, commandType: CommandType.StoredProcedure);
-
-                    // Obtener el valor del parámetro de salida
-                    string mensajeSalida = parametros.Get<string>(parametrosalida);
-
-                    return mensajeSalida;
+                    using (var command = new SqlCommand(procedimiento, connection)) { 
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (parametros is not null) {
+                            foreach (var param in parametros.ParameterNames) {
+                                command.Parameters.AddWithValue(param, parametros.Get<dynamic>(param));
+                            }
+                            command.Parameters.Add(parametrosalida,SqlDbType.VarChar,sizeParametroSalida).Direction=ParameterDirection.Output;
+                        }
+                        connection.Open();
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            respuesta = command.Parameters[parametrosalida].Value.ToString();
+                        }
+                        else { 
+                            respuesta = "ERROR";
+                        }
+                        connection.Close();
+                    }
+                    return respuesta;
                 }
             }
             catch (Exception vEx)
