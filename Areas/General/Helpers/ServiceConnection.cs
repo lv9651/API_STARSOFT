@@ -14,6 +14,7 @@ namespace CLINICA_API.Areas.General.Helpers
             _connection = configuration.GetConnectionString("ConnectionClinica");
 
         }
+        //Metodo que retorna una tabla
         public string MetodoDatatabletostringsql(string procedimiento, DynamicParameters parametros)
         {                                                                               
             try
@@ -53,7 +54,7 @@ namespace CLINICA_API.Areas.General.Helpers
                 return null;
             }
         }
-
+        //Metodo que retorna un output
         public  string MetodoRespuestasql(string procedimiento,DynamicParameters parametros,int sizeParametroSalida)
         {
             try
@@ -89,6 +90,45 @@ namespace CLINICA_API.Areas.General.Helpers
                 return vEx.Message.ToString();
             }
         }
+        //Metodo que te da una respuesta en caso se haya ejecutado algun registro
+        public string MetodoRespuestasql(string procedimiento, DynamicParameters parametros)
+        {
+            try
+            {
+                string respuesta = "";
+                using (var connection = new SqlConnection(_connection))
+                {
+                    using (var command = new SqlCommand(procedimiento, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (parametros is not null)
+                        {
+                            foreach (var param in parametros.ParameterNames)
+                            {
+                                command.Parameters.AddWithValue(param, parametros.Get<dynamic>(param));
+                            }
+                        }
+                        connection.Open();
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            respuesta = "Ok";
+                        }
+                        else
+                        {
+                            respuesta = "Vacio";
+                        }
+                        connection.Close();
+                    }
+                    return respuesta;
+                }
+            }
+            catch (Exception vEx)
+            {
+                // Manejar excepciones
+                return vEx.Message.ToString();
+            }
+        }
+        //Metodo que te retorna una tabla de manera asincrona
         public async Task<string> MetodoDatatabletostringsqlasync(string procedimiento, DynamicParameters parametros)
         {
             try
@@ -126,8 +166,6 @@ namespace CLINICA_API.Areas.General.Helpers
                 return null;
             }
         }
-       
-        
 
     }
 }
