@@ -1,6 +1,7 @@
 ﻿using CLINICA_API.Areas.General.Helpers;
 using CLINICA_API.Areas.Medico.Data;
 using Dapper;
+using Newtonsoft.Json;
 using System.Reflection.Metadata.Ecma335;
 
 namespace CLINICA_API.Areas.Medico.Service
@@ -11,17 +12,27 @@ namespace CLINICA_API.Areas.Medico.Service
         public MedicoService( MedicoData data) {
             _data= data; 
         }
-        public string GetListaMedicos(string filtro) {
-            return _data.GetListaMedicos(filtro);
+        public string ListarMedicosxFiltro(string filtro) {
+            return JsonConvert.SerializeObject(_data.ListarMedicosxFiltro(filtro));
         }
-        public string GetMedicoxid(string idmedico) {
-            return _data.GetMedicoxid(idmedico);
+        public string ObtenerMedicoxIdMedico(string idmedico) {
+            return JsonConvert.SerializeObject(_data.ObtenerMedicoxIdMedico(idmedico));
         }
-        public async Task<string> GetListasGenerales() { 
-            return await _data.GetListasGenerales();
+        public string GuardarEditarMedico(string jsonmedico)
+        {
+            return JsonConvert.SerializeObject(_data.GuardarEditarMedico(jsonmedico));
         }
-        public string GuardarEditar(string jsonmedico) { 
-            return _data.GuardarEditar(jsonmedico);
+        public string ListarMedicosDisponibles_Combo(string fecha, string idespecialidad, string idmodalidad, string idsucursal)
+        {
+            return JsonConvert.SerializeObject(_data.ListarMedicosDisponibles_Combo(fecha, idespecialidad, idmodalidad, idsucursal));
+        }
+        public string ListarMedicosxFiltro_Modal(string filtro)
+        {
+            return JsonConvert.SerializeObject(_data.ListarMedicosxFiltro_Modal(filtro));
+        }
+        public string ObtenerMedicoxNumColegiatura(string numcolegiatura)
+        {
+            return JsonConvert.SerializeObject(_data.ObtenerMedicoxNumColegiatura(numcolegiatura));
         }
     }
 }

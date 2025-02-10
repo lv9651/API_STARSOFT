@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using CLINICA_API.Modelo;
 
 
 namespace CLINICA_API.Areas.General.Helpers
@@ -10,16 +11,32 @@ namespace CLINICA_API.Areas.General.Helpers
     public class ServiceConnection
     {
         private readonly string? _connection;
+        private readonly string? _connectionSige;
+        private readonly string? _connectionSislab;
+        public enum TipoConexion
+        {
+            Clinica,
+            SIGE,
+            SISLAB
+        }
         public ServiceConnection(IConfiguration configuration) {
             _connection = configuration.GetConnectionString("ConnectionClinica");
-
+            _connectionSige = configuration.GetConnectionString("ConnectionSige");
+            _connectionSislab = configuration.GetConnectionString("ConnectionSislab");
         }
         //Metodo que retorna una tabla
-        public string MetodoDatatabletostringsql(string procedimiento, DynamicParameters parametros)
+        public MensajeJson MetodoDatatabletostringsql(string procedimiento, DynamicParameters parametros, TipoConexion tipoConexion = TipoConexion.Clinica)
         {                                                                               
             try
             {
-                using (var connection = new SqlConnection(_connection))
+                string conexion = _connection;
+                
+                if(tipoConexion == TipoConexion.SIGE)
+                    conexion = _connectionSige;
+                else if (tipoConexion == TipoConexion.SISLAB)
+                    conexion = _connectionSislab;
+
+                using (var connection = new SqlConnection(conexion))
                 {
                     var datatable = new DataTable();
 
@@ -45,23 +62,31 @@ namespace CLINICA_API.Areas.General.Helpers
                     }
 
                     // Convertir el DataTable a JSON y devolverlo
-                    return JsonConvert.SerializeObject(datatable);
+                    return new MensajeJson("OK", JsonConvert.SerializeObject(datatable));
                 }
             }
             catch (Exception ex)
             {
                 // Manejar excepciones
-                return null;
+                return new MensajeJson("ERROR", ex.Message);
             }
         }
         //Metodo que retorna un output
-        public  string MetodoRespuestasql(string procedimiento,DynamicParameters parametros,int sizeParametroSalida)
+        public MensajeJson MetodoRespuestasql(string procedimiento,DynamicParameters parametros,int sizeParametroSalida, TipoConexion tipoConexion = TipoConexion.Clinica)
         {
             try
             {
                 string parametrosalida = "@respuesta";
                 string respuesta = "";
-                using (var connection = new SqlConnection(_connection))
+                string sEstado = "";
+                string conexion = _connection;
+
+                if (tipoConexion == TipoConexion.SIGE)
+                    conexion = _connectionSige;
+                else if (tipoConexion == TipoConexion.SISLAB)
+                    conexion = _connectionSislab;
+                
+                using (var connection = new SqlConnection(conexion))
                 {
                     using (var command = new SqlCommand(procedimiento, connection)) { 
                         command.CommandType = CommandType.StoredProcedure;
@@ -73,25 +98,23 @@ namespace CLINICA_API.Areas.General.Helpers
                         }
                         connection.Open();
                         if (command.ExecuteNonQuery() > 0)
-                        {
-                            respuesta = command.Parameters[parametrosalida].Value.ToString();
-                        }
-                        else { 
-                            respuesta = "ERROR";
-                        }
+                            sEstado = "OK";
+                        else
+                            sEstado = "WARNING";
+                        respuesta = command.Parameters[parametrosalida].Value.ToString();
                         connection.Close();
                     }
-                    return respuesta;
+                    return new MensajeJson(sEstado, respuesta);
                 }
             }
             catch (Exception vEx)
             {
                 // Manejar excepciones
-                return vEx.Message.ToString();
+                return new MensajeJson("ERROR", vEx.Message);
             }
         }
         //Metodo que te da una respuesta en caso se haya ejecutado algun registro
-        public string MetodoRespuestasql(string procedimiento, DynamicParameters parametros)
+        public MensajeJson MetodoRespuestasql(string procedimiento, DynamicParameters parametros)
         {
             try
             {
@@ -109,31 +132,31 @@ namespace CLINICA_API.Areas.General.Helpers
                             }
                         }
                         connection.Open();
-                        if (command.ExecuteNonQuery() > 0)
-                        {
-                            respuesta = "Ok";
-                        }
-                        else
-                        {
-                            respuesta = "Vacio";
-                        }
+                        command.ExecuteNonQuery();
                         connection.Close();
                     }
-                    return respuesta;
+                    return new MensajeJson("OK", respuesta);
                 }
             }
             catch (Exception vEx)
             {
                 // Manejar excepciones
-                return vEx.Message.ToString();
+                return new MensajeJson("ERROR", vEx.Message);
             }
         }
         //Metodo que te retorna una tabla de manera asincrona
-        public async Task<string> MetodoDatatabletostringsqlasync(string procedimiento, DynamicParameters parametros)
+        public async Task<MensajeJson> MetodoDatatabletostringsqlasync(string procedimiento, DynamicParameters parametros, TipoConexion tipoConexion = TipoConexion.Clinica)
         {
             try
             {
-                using (var connection = new SqlConnection(_connection))
+                string conexion = _connection;
+                
+                if (tipoConexion == TipoConexion.SIGE)
+                    conexion = _connectionSige;
+                else if (tipoConexion == TipoConexion.SISLAB)
+                    conexion = _connectionSislab;
+
+                using (var connection = new SqlConnection(conexion))
                 {
                     var datatable = new DataTable();
 
@@ -157,13 +180,13 @@ namespace CLINICA_API.Areas.General.Helpers
                     }
 
                     // Convertir el DataTable a JSON y devolverlo
-                    return JsonConvert.SerializeObject(datatable);
+                    return new MensajeJson("OK", JsonConvert.SerializeObject(datatable));
                 }
             }
             catch (Exception ex)
             {
                 // Manejar excepciones
-                return null;
+                return new MensajeJson("ERROR", ex.Message);
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿using CLINICA_API.Areas.Medico.Data;
 using CLINICA_API.Areas.Usuario.Data;
+using CLINICA_API.Modelo;
+using Newtonsoft.Json;
 
 namespace CLINICA_API.Areas.Usuario.Service
 {
@@ -10,24 +12,22 @@ namespace CLINICA_API.Areas.Usuario.Service
         {
             _data = data;
         }
-        public string GetValLogin(string username,string clave)
+        public string ValidarCredenciales(string jsoncredenciales)
         {
-            return _data.GetValLogin(username,clave);
+            return JsonConvert.SerializeObject(_data.ValidarCredenciales(jsoncredenciales));
         }
-        public string GetListaUsuario(string filtro) {
-            return _data.GetListaUsuario(filtro);
+        public string ListarUsuarios(string filtro) {
+            return JsonConvert.SerializeObject(_data.ListarUsuarios(filtro));
         }
-        public string GetUsuarioxid(string idusuario) {
-            return _data.GetUsuarioxid(idusuario);
+        public string ObtenerUsuarioxIdUsuario(string idusuario) {
+            return JsonConvert.SerializeObject(_data.ObtenerUsuarioxIdUsuario(idusuario));
         }
-        public string GuardarEditar(string jsonuser) {
-            return _data.GuardarEditar(jsonuser);
+        public string GuardarEditarUsuario(string jsonuser) {
+            return JsonConvert.SerializeObject(_data.GuardarEditarUsuario(jsonuser));
         }
-        public string GetPermisosxUsuarioxRol(string idusuario, string idrol) { 
-            return _data.GetPermisosxUsuarioxRol(idusuario, idrol);
-        }
-        public string ActualizarPermisoxUsuario(string idusuario, string idpermiso) {
-            return _data.ActualizarPermisoxUsuario(idusuario, idpermiso);
+        public string ListarRolParaUsuario()
+        {
+            return JsonConvert.SerializeObject(_data.ListarRolParaUsuario());
         }
     }
 }

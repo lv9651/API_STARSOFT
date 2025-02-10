@@ -1,4 +1,5 @@
 ﻿using CLINICA_API.Areas.General.Helpers;
+using CLINICA_API.Modelo;
 using Dapper;
 
 namespace CLINICA_API.Areas.Usuario.Data
@@ -10,41 +11,32 @@ namespace CLINICA_API.Areas.Usuario.Data
         {
             _connection = connection;
         }
-        public string GetValLogin(string username,string clave)
+        public MensajeJson ValidarCredenciales(string jsoncredenciales)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@username", username);
-            parameters.Add("@clave", clave);
-
-            return _connection.MetodoDatatabletostringsql("general.login", parameters);
+            parameters.Add("@jsoncredenciales", jsoncredenciales);
+            return _connection.MetodoDatatabletostringsql("General.sp_validar_usuariocredenciales", parameters);
         }
-        public string GetListaUsuario(string filtro)
+        public MensajeJson ListarUsuarios(string filtro)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@filtro", filtro);
-            return _connection.MetodoDatatabletostringsql("general.lista_usuarios", parameters);
+            return _connection.MetodoDatatabletostringsql("General.sp_listar_usuariosxfiltro", parameters);
         }
-        public string GetUsuarioxid(string idusuario) { 
+        public MensajeJson ObtenerUsuarioxIdUsuario(string idusuario) { 
             var parameters = new DynamicParameters();
             parameters.Add("@idusuario", idusuario);
-            return _connection.MetodoDatatabletostringsql("general.buscarusuarioxid", parameters);
+            return _connection.MetodoDatatabletostringsql("General.sp_obtener_usuarioxidusuario", parameters);
         }
-        public string GuardarEditar(string jsonuser) {
+        public MensajeJson GuardarEditarUsuario(string jsonuser) {
             var parameters = new DynamicParameters();
-            parameters.Add("@jsonuser", jsonuser);
-            return _connection.MetodoRespuestasql("general.GuardarEditarUsuario", parameters,50);
+            parameters.Add("@jsonusuario", jsonuser);
+            return _connection.MetodoRespuestasql("General.sp_guardareditar_usuario", parameters, 50);
         }
-        public string GetPermisosxUsuarioxRol(string idusuario,string idrol) {
+        public MensajeJson ListarRolParaUsuario()
+        {
             var parameters = new DynamicParameters();
-            parameters.Add("@idusuario", idusuario);
-            parameters.Add("@idrol", idrol);
-            return _connection.MetodoDatatabletostringsql("general.permisosxrolxusuario", parameters);
-        }
-        public string ActualizarPermisoxUsuario(string idusuario, string idpermiso) { 
-            var parameters= new DynamicParameters();
-            parameters.Add("@idusuario", idusuario);
-            parameters.Add("@idpermiso", idpermiso);
-            return _connection.MetodoRespuestasql("general.modificar_permiso", parameters);
+            return _connection.MetodoDatatabletostringsql("General.sp_listar_rolparausuario", parameters);
         }
     }
 }

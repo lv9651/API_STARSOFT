@@ -14,21 +14,33 @@ namespace CLINICA_API.Areas.Medico.Controller
             _service = service;
         }
         [HttpGet("ListarMedicos")]
-        public string GetListaMedicos(string filtro = "") {
-            return _service.GetListaMedicos(filtro);
+        public string ListarMedicosxFiltro(string filtro = "") {
+            return _service.ListarMedicosxFiltro(filtro);
         }
-        [HttpGet("Medicoxid/{idmedico}")]
-        public string GetMedicoxid(string idmedico) {
-            return _service.GetMedicoxid(idmedico);
+        [HttpGet("ObtenerMedicoxIdMedico/{idmedico}")]
+        public string ObtenerMedicoxIdMedico(string idmedico) {
+            return _service.ObtenerMedicoxIdMedico(idmedico);
         }
-        [HttpGet("ListasGenerales")]
-        public async Task<string> GetListasGenerales() {
-            return await _service.GetListasGenerales();
-        }
-        [HttpPost("GuardarEditar")]
-        public string GuardarEditar([FromBody] string jsonmedico) {
-            var rptaregistro=_service.GuardarEditar(jsonmedico);
+        [HttpPost("GuardarEditarMedico")]
+        public string GuardarEditarMedico([FromBody] string jsonmedico)
+        {
+            var rptaregistro = _service.GuardarEditarMedico(jsonmedico);
             return rptaregistro;
+        }
+        [HttpGet("ListarMedicosDisponibles_Combo/{fecha}/{idespecialidad}/{idmodalidad}/{idsucursal}")]
+        public string ListarMedicosDisponibles_Combo(string fecha, string idespecialidad, string idmodalidad, string idsucursal)
+        {
+            return _service.ListarMedicosDisponibles_Combo(fecha, idespecialidad, idmodalidad, idsucursal);
+        }
+        [HttpGet("ListarMedicos_Modal")]
+        public string ListarMedicosxFiltro_Modal(string filtro = "")
+        {
+            return _service.ListarMedicosxFiltro_Modal(filtro);
+        }
+        [HttpGet("ObtenerMedicoxNumColegiatura/{numcolegiatura}")]
+        public string ObtenerMedicoxNumColegiatura(string numcolegiatura)
+        {
+            return _service.ObtenerMedicoxNumColegiatura(numcolegiatura);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using CLINICA_API.Areas.Medico.Service;
 using CLINICA_API.Areas.Usuario.Service;
+using CLINICA_API.Modelo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLINICA_API.Areas.Usuario.Controller
@@ -14,32 +15,29 @@ namespace CLINICA_API.Areas.Usuario.Controller
         {
             _service = service;
         }
-        [HttpGet("GetValLogin/{username}/{clave}")]
-        public string GetValLogin(string username, string clave)
+        [HttpPost("ValidarCredenciales")]
+        public string ValidarCredenciales([FromBody] string jsoncredenciales)
         {
-            return _service.GetValLogin(username, clave);
+            return _service.ValidarCredenciales(jsoncredenciales);
         }
-        [HttpGet("GetListaUsuario")]
-        public string GetListaUsuario(string filtro = "") {
-            return _service.GetListaUsuario(filtro);
+        [HttpGet("ListarUsuarios")]
+        public string ListarUsuarios(string filtro = "") {
+            return _service.ListarUsuarios(filtro);
         }
-        [HttpGet("Usuarioxid/{idusuario}")]
-        public string GetUsuarioxid(string idusuario) {
-            return _service.GetUsuarioxid(idusuario);
+        [HttpGet("ObtenerUsuarioxIdUsuario/{idusuario}")]
+        public string ObtenerUsuarioxIdUsuario(string idusuario) {
+            return _service.ObtenerUsuarioxIdUsuario(idusuario);
         }
-        [HttpPost("GuardarEditar")]
-        public string GuardarEditar([FromBody] string jsonuser)
+        [HttpPost("GuardarEditarUsuario")]
+        public string GuardarEditarUsuario([FromBody] string jsonuser)
         {
-            var rptaregistro = _service.GuardarEditar(jsonuser);
+            var rptaregistro = _service.GuardarEditarUsuario(jsonuser);
             return rptaregistro;
         }
-        [HttpGet("GetPermisosxUsuarioxRol/{idusuario}/{idrol}")]
-        public string GetPermisosxUsuarioxRol(string idusuario, string idrol) {
-            return _service.GetPermisosxUsuarioxRol(idusuario, idrol);
-        }
-        [HttpGet("ActualizarPermisoxUsuario/{idusuario}/{idpermiso}")]
-        public string ActualizarPermisoxUsuario(string idusuario, string idpermiso) { 
-            return _service.ActualizarPermisoxUsuario(idusuario, idpermiso);
+        [HttpGet("ListarRolParaUsuario")]
+        public string ListarRolParaUsuario()
+        {
+            return _service.ListarRolParaUsuario();
         }
     }
 }
