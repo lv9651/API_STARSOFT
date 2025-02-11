@@ -17,5 +17,11 @@ namespace CLINICA_API.Areas.General.Data
         {
             return await _connection.MetodoDatatabletostringsqlasync("General.sp_listar_listasgenerales", null);
         }
+        public MensajeJson ObtenerConstantexDescripcion(string descripcion)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@descripcion", descripcion);
+            return _connection.MetodoDatatabletostringsql("General.sp_obtener_constantexdescripcion", parameters);
+        }
     }
 }

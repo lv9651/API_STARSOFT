@@ -28,5 +28,9 @@ namespace CLINICA_API.Areas.General.Service
                 return ex.Message;
             }
         }
+        public string ObtenerConstantexDescripcion(string descripcion)
+        {
+            return JsonConvert.SerializeObject(_data.ObtenerConstantexDescripcion(descripcion));
+        }
     }
 }

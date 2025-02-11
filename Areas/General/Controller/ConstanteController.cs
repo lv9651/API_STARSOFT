@@ -17,5 +17,10 @@ namespace CLINICA_API.Areas.General.Controller
         {
             return await _service.ListasGenerales();
         }
+        [HttpGet("ObtenerConstantexDescripcion/{descripcion}")]
+        public string ObtenerConstantexDescripcion(string descripcion)
+        {
+            return _service.ObtenerConstantexDescripcion(descripcion);
+        }
     }
 }
