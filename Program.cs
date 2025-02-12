@@ -23,6 +23,9 @@ using CLINICA_API.Areas.Usuario.Service;
 using CLINICA_API.Areas.Venta.Controller;
 using CLINICA_API.Areas.Venta.Data;
 using CLINICA_API.Areas.Venta.Service;
+using SISLAB_API.Areas.Maestros.Repositories;
+using SISLAB_API.Areas.Maestros.Services;
+using YourNamespace.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +35,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:3001")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials());
+});
 
 //Service
 builder.Services.AddScoped<MedicoService>();
@@ -67,6 +79,17 @@ builder.Services.AddScoped<TipoTarjetaService>();
 builder.Services.AddScoped<ProcedimientoService>();
 builder.Services.AddScoped<MotivoEmisionService>();
 builder.Services.AddScoped<VentaService>();
+
+builder.Services.AddScoped<UsuariosService>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<MedicosService>();
+builder.Services.AddControllers();
+builder.Services.AddHttpClient<IzipayService>();
+builder.Services.AddScoped<VentasService>();
+builder.Services.AddScoped<CorreoService>();
+
+
+
 //Data
 builder.Services.AddScoped<MedicoData>();
 builder.Services.AddScoped<UsuarioData>();
@@ -101,6 +124,10 @@ builder.Services.AddScoped<TipoTarjetaData>();
 builder.Services.AddScoped<ProcedimientoData>();
 builder.Services.AddScoped<MotivoEmisionData>();
 builder.Services.AddScoped<VentaData>();
+
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<MedicoRepository>();
+builder.Services.AddScoped<VentaRepository>();
 
 //Conection
 builder.Services.AddScoped<ServiceConnection>();
@@ -140,7 +167,7 @@ builder.Services.AddScoped<VentaController>();
 
 var app = builder.Build();
 
-
+app.UseCors("AllowSpecificOrigin");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
