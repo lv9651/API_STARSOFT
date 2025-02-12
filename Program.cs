@@ -39,7 +39,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:3001")
+        builder => builder.WithOrigins("https://reservacita.vinali.pe")
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials());
