@@ -94,9 +94,28 @@ namespace SISLAB_API.Areas.Maestros.Services
                 throw new Exception("Error al insertar el paciente familiar: " + ex.Message);
             }
         }
-    
 
-    public async Task<IEnumerable<Tipo_pago>> ObtenerTipopago()
+
+
+        public async Task<int> ActclienteVinAsync(Reg_pariente request)
+        {
+            try
+            {
+                // Llamamos al repositorio para insertar los datos y obtener el cli_codigo
+                int cliCodigo = await _medicoRepository.ActCliente_VinAsync(request);
+
+                // Retornamos el cli_codigo insertado
+                return cliCodigo;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones (si algo sale mal)
+                throw new Exception("Error al Actualizar Paciente: " + ex.Message);
+            }
+        }
+
+
+        public async Task<IEnumerable<Tipo_pago>> ObtenerTipopago()
         {
             return await _medicoRepository.ObtenerTipoPago();
         }

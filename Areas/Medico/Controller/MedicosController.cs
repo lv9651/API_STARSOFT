@@ -210,14 +210,47 @@ public class MedicosController : ControllerBase
                 return BadRequest(new { message = ex.Message });
             }
         }
-    
+
+        [HttpPost("Act_cli_Vin")]
+        public async Task<IActionResult> ActualizarDatosVinali([FromBody] Reg_pariente request)
+        {
+            try
+            {
+                // Validate the input data if necessary
+                if (request == null)
+                {
+                    return BadRequest(new { message = "Request body cannot be null" });
+                }
+
+                // Call the service to insert the patient and retrieve the cli_codigo
+                int cliCodigo = await _medicoService.ActclienteVinAsync(request);
+
+                // If cliCodigo is 0 or an invalid result, return a bad request
+                if (cliCodigo <= 0)
+                {
+                    return BadRequest(new { message = "Failed to retrieve cli_codigo" });
+                }
+
+                // Return the cli_codigo in the successful response
+                return Ok(new { cli_codigo = cliCodigo });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if necessary
+                // _logger.LogError(ex, "Error while processing Act_cli_Vin request.");
+
+                // Return an error message
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
 
 
 
 
 
-    [HttpPost("buscardiahora")]
+
+        [HttpPost("buscardiahora")]
         public async Task<IActionResult> BuscardiaHoraMedico([FromBody] BusquedaRequest request)
         {
             if (string.IsNullOrEmpty(request.Fecha) || string.IsNullOrEmpty(request.Colegio) || string.IsNullOrEmpty(request.idmodalidad))

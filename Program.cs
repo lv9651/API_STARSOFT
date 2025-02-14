@@ -45,6 +45,8 @@ builder.Services.AddCors(options =>
                           .AllowCredentials());
 });
 
+
+/*https://reservacita.vinali.pe*/
 //Service
 builder.Services.AddScoped<MedicoService>();
 builder.Services.AddScoped<UsuarioService>();

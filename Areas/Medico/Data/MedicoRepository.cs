@@ -279,6 +279,25 @@ GROUP BY med_esp.descripcion";
 
 
 
+    public async Task<int> ActCliente_VinAsync(Reg_pariente request)
+    {
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@json", request.Json);
+
+            // Ejecutar el procedimiento almacenado e insertar los datos
+            var cliCodigo = await connection.QuerySingleOrDefaultAsync<int>(
+                "Act_cli_Vinali",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            return cliCodigo;  // Retornar el cli_codigo insertado
+        }
+    }
 
 
 
@@ -287,7 +306,9 @@ GROUP BY med_esp.descripcion";
 
 
 
-public async Task<IEnumerable<Tipo_pago>> ObtenerTipoPago()
+
+
+    public async Task<IEnumerable<Tipo_pago>> ObtenerTipoPago()
     {
         var especialidades = new List<Tipo_pago>();
 
