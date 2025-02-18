@@ -47,6 +47,14 @@ namespace SISLAB_API.Areas.Maestros.Services
         }
 
 
+        public async Task<List<RecetaCliente>> GetRecetasByCitaIdAsync(int idCita)
+        {
+            return await _medicoRepository.GetRecetasByCitaIdAsync(idCita);
+        }
+
+
+
+
         public async Task<IEnumerable<Bus_cita_cliente>> Busq_cita_clienteAsync(string documento)
         {
             return await _medicoRepository.Busq_cita_clienteAsync(documento);

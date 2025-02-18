@@ -111,7 +111,31 @@ public class MedicosController : ControllerBase
         }
 
 
-        [HttpGet("buscarcita/{documento}")]
+
+        [HttpGet("Mostrar_Receta_cliente")]
+        public async Task<IActionResult> GetRecetasCliente([FromQuery] int idcita)
+        {
+            var recetas = await _medicoService.GetRecetasByCitaIdAsync(idcita);
+
+            if (recetas == null || recetas.Count == 0)
+            {
+                return NotFound("No recetas found for the given cita id.");
+            }
+
+            return Ok(recetas);
+        }
+ 
+
+
+
+
+
+
+
+
+
+
+    [HttpGet("buscarcita/{documento}")]
         public async Task<IActionResult> BuscarCitaPorCliente(string documento)
         {
             if (string.IsNullOrEmpty(documento))
@@ -125,10 +149,12 @@ public class MedicosController : ControllerBase
 
 
             return Ok(medicos);
-        }
+    }
 
 
-        [HttpGet("buscarhistorialMedico/{documento}")]
+
+
+[HttpGet("buscarhistorialMedico/{documento}")]
         public async Task<IActionResult> BuscarHistorialMedico(string documento)
         {
             if (string.IsNullOrEmpty(documento))
@@ -210,6 +236,7 @@ public class MedicosController : ControllerBase
                 return BadRequest(new { message = ex.Message });
             }
         }
+
 
         [HttpPost("Act_cli_Vin")]
         public async Task<IActionResult> ActualizarDatosVinali([FromBody] Reg_pariente request)

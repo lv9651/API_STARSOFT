@@ -4,6 +4,7 @@ using Org.BouncyCastle.Asn1.X509;
 
 public class Bus_cita_cliente
 {
+    public string idcita { get; set; }
     public string idcliente { get; set; }
     public string serie { get; set; }
     public string numdocumento { get; set; }

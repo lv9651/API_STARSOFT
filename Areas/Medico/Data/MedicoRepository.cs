@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using SISLAB_API.Areas.Maestros.Models;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 public class MedicoRepository
@@ -141,6 +142,44 @@ GROUP BY med_esp.descripcion";
         return médicos;  // Retorna la lista de médicos
     }
 
+    public async Task<List<RecetaCliente>> GetRecetasByCitaIdAsync(int idCita)
+    {
+        var sqlQuery = "EXEC Mostrar_Receta_cliente @idcita";
+
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            // Abrir la conexión
+            await connection.OpenAsync();
+
+            // Ejecutar la consulta con Dapper
+            var result = await connection.QueryAsync<RecetaCliente, string, string, RecetaCliente>(
+                sqlQuery,
+                (receta, datosClienteJson,formulaJson ) =>
+                {
+                    // Deserializar la fórmula JSON
+
+                    receta.formula = string.IsNullOrEmpty(formulaJson)
+                        ? new List<FormulaComponent>()
+                        : Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormulaComponent>>(formulaJson);
+
+                    receta.datos_cliente = string.IsNullOrEmpty(datosClienteJson)
+                       ? new List<DatosCliente>()
+                       : Newtonsoft.Json.JsonConvert.DeserializeObject<List<DatosCliente>>(datosClienteJson);
+
+
+                    // Deserializar los datos del cliente JSON
+                   
+
+                    return receta;
+                },
+                new { idcita = idCita },
+                splitOn: "datos_cliente,formula"  // Especifica la columna que separa los diferentes resultados
+            );
+
+            // Retornar la lista de recetas
+            return result.ToList();
+        }
+    }
 
     public async Task<IEnumerable<string>> ActCliHist(string dni, string email, string clave)
     {
