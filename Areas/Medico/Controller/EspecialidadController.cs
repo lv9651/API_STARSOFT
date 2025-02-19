@@ -18,5 +18,21 @@ namespace CLINICA_API.Areas.Medico.Controller
         {
             return _service.ListarEspecialidad_Combo();
         }
+        [HttpGet("ListarEspecialidadXFiltro")]
+        public async Task<string> ListarEspecialidadXFiltro(string filtro = "")
+        {
+            return await _service.ListarEspecialidadXFiltro(filtro);
+        }
+        [HttpGet("ObtenerEspecialidadxIdEspecialidad/{idespecialidad}")]
+        public string ObtenerEspecialidadxIdEspecialidad(string idespecialidad)
+        {
+            return _service.ObtenerEspecialidadxIdEspecialidad(idespecialidad);
+        }
+        [HttpPost("GuardarEditarEspecialidad")]
+        public string GuardarEditarEspecialidad([FromBody] string jsonespecialidad)
+        {
+            var rptaregistro = _service.GuardarEditarEspecialidad(jsonespecialidad);
+            return rptaregistro;
+        }
     }
 }

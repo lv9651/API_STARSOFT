@@ -80,5 +80,64 @@ namespace CLINICA_API.Areas.Venta.Service
         {
             return JsonConvert.SerializeObject(_data.GuardarEditarComplementoVentaPago(jsonventapago));
         }
+        public string ListarVentasNC_Modal(string fechainicio, string fechafin, string idsucursal, string comprobante)
+        {
+            var msJson = _data.ListarVentasNC_Modal(fechainicio, fechafin, idsucursal, comprobante);
+            DataTable dtVenta = new DataTable();
+            dtVenta = JsonConvert.DeserializeObject<DataTable>(msJson.objeto.ToString());
+            if (dtVenta != null)
+            {
+                if (dtVenta.Rows.Count > 0)
+                {
+                    Dictionary<string, string?> dIdCliente = new();
+                    foreach (DataRow row in dtVenta.Rows)
+                    {
+                        string? idclientebuscar = row["idcliente"].ToString();
+                        string? nombrecliente = "";
+                        if (dIdCliente.ContainsKey(idclientebuscar))
+                        {
+                            nombrecliente = dIdCliente.GetValueOrDefault(idclientebuscar);
+                        }
+                        else
+                        {
+                            var msJsonCliente = _dataCliente.ObtenerClientexIdCliente(idclientebuscar);
+                            DataTable dtCliente = new DataTable();
+                            dtCliente = JsonConvert.DeserializeObject<DataTable>(msJsonCliente.objeto.ToString());
+                            if (dtCliente != null)
+                                if (dtCliente.Rows.Count > 0)
+                                {
+                                    nombrecliente = dtCliente.Rows[0]["cliente"].ToString();
+                                    dIdCliente.Add(idclientebuscar, nombrecliente);
+                                }
+                        }
+
+                        row["cliente"] = nombrecliente;
+                    }
+                }
+            }
+            return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtVenta)));
+        }
+        public string ObtenerDatosVentaParaNCxIdVenta(string idventa)
+        {
+            var msJson = _data.ObtenerDatosVentaParaNCxIdVenta(idventa);
+            DataTable dtVenta = new DataTable();
+            dtVenta = JsonConvert.DeserializeObject<DataTable>(msJson.objeto.ToString());
+            if (dtVenta != null)
+            {
+                if (dtVenta.Rows.Count > 0)
+                {
+                    var msJsonCliente = _dataCliente.ObtenerClientexIdCliente(dtVenta.Rows[0]["idcliente"].ToString());
+                    DataTable dtCliente = new DataTable();
+                    dtCliente = JsonConvert.DeserializeObject<DataTable>(msJsonCliente.objeto.ToString());
+                    if (dtCliente != null)
+                        if (dtCliente.Rows.Count > 0)
+                        {
+                            dtVenta.Rows[0]["documentocliente"] = dtCliente.Rows[0]["numdocumento"].ToString();
+                            dtVenta.Rows[0]["cliente"] = dtCliente.Rows[0]["cliente"].ToString();
+                        }
+                }
+            }
+            return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtVenta)));
+        }
     }
 }

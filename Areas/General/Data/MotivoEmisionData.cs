@@ -30,5 +30,11 @@ namespace CLINICA_API.Areas.General.Data
             parameters.Add("@jsonmotivoemision", jsonmotivoemision);
             return _connection.MetodoRespuestasql("General.sp_guardareditar_motivoemision", parameters, 50);
         }
+        public MensajeJson ListarMotivoEmisionxIdDocumentoTributarioNC_Combo(string iddocumentotributario)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@iddocumentotributario", iddocumentotributario);
+            return _connection.MetodoDatatabletostringsql("General.sp_listar_motivoemisionxiddocumentotributarionc_combo", parameters);
+        }
     }
 }

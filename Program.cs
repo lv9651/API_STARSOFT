@@ -67,6 +67,7 @@ builder.Services.AddScoped<TipoTarjetaService>();
 builder.Services.AddScoped<ProcedimientoService>();
 builder.Services.AddScoped<MotivoEmisionService>();
 builder.Services.AddScoped<VentaService>();
+builder.Services.AddScoped<NotaCreditoService>();
 //Data
 builder.Services.AddScoped<MedicoData>();
 builder.Services.AddScoped<UsuarioData>();
@@ -101,6 +102,7 @@ builder.Services.AddScoped<TipoTarjetaData>();
 builder.Services.AddScoped<ProcedimientoData>();
 builder.Services.AddScoped<MotivoEmisionData>();
 builder.Services.AddScoped<VentaData>();
+builder.Services.AddScoped<NotaCreditoData>();
 
 //Conection
 builder.Services.AddScoped<ServiceConnection>();
@@ -137,6 +139,7 @@ builder.Services.AddScoped<TipoTarjetaController>();
 builder.Services.AddScoped<ProcedimientoController>();
 builder.Services.AddScoped<MotivoEmisionController>();
 builder.Services.AddScoped<VentaController>();
+builder.Services.AddScoped<NotaCreditoController>();
 
 var app = builder.Build();
 

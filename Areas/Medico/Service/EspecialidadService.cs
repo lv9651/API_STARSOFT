@@ -15,5 +15,17 @@ namespace CLINICA_API.Areas.Medico.Service
         {
             return JsonConvert.SerializeObject(_data.ListarEspecialidad_Combo());
         }
+        public async Task<string> ListarEspecialidadXFiltro(string filtro)
+        {
+            return JsonConvert.SerializeObject(await _data.ListarEspecialidadXFiltro(filtro));
+        }
+        public string ObtenerEspecialidadxIdEspecialidad(string idespecialidad)
+        {
+            return JsonConvert.SerializeObject(_data.ObtenerEspecialidadxIdEspecialidad(idespecialidad));
+        }
+        public string GuardarEditarEspecialidad(string jsonespecialidad)
+        {
+            return JsonConvert.SerializeObject(_data.GuardarEditarEspecialidad(jsonespecialidad));
+        }
     }
 }

@@ -38,5 +38,9 @@ namespace CLINICA_API.Areas.General.Service
         {
             return JsonConvert.SerializeObject(_data.GuardarEditarMotivoEmisionDocumentoTributario(jsonmotivoemisiondocumentotributario));
         }
+        public string ListarDocumentoTributarioNC_Combo()
+        {
+            return JsonConvert.SerializeObject(_data.ListarDocumentoTributarioNC_Combo());
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace CLINICA_API.Areas.Procedimiento.Data
         {
             var parameters = new DynamicParameters();
             parameters.Add("@idprocedimiento", idprocedimiento);
-            return _connection.MetodoDatatabletostringsql("Procedimientos.sp_eliminar_procedimiento", parameters);
+            return _connection.MetodoRespuestasql("Procedimientos.sp_eliminar_procedimiento", parameters, 50);
         }
         public MensajeJson ObtenerProcedimientoxIdPaciente_ModalProcedimientoPaciente(string idprocedimiento)
         {

@@ -23,5 +23,9 @@ namespace CLINICA_API.Areas.General.Service
         {
             return JsonConvert.SerializeObject(_data.GuardarEditarDocumentoMotivoEmision(jsonmotivoemision));
         }
+        public string ListarMotivoEmisionxIdDocumentoTributarioNC_Combo(string iddocumentotributario)
+        {
+            return JsonConvert.SerializeObject(_data.ListarMotivoEmisionxIdDocumentoTributarioNC_Combo(iddocumentotributario));
+        }
     }
 }

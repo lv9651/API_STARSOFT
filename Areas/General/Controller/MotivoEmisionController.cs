@@ -29,5 +29,10 @@ namespace CLINICA_API.Areas.General.Controller
             var rptaregistro = _service.GuardarEditarDocumentoMotivoEmision(jsonmotivoemision);
             return rptaregistro;
         }
+        [HttpGet("ListarMotivoEmisionxIdDocumentoTributarioNC_Combo/{iddocumentotributario}")]
+        public string ListarMotivoEmisionxIdDocumentoTributarioNC_Combo(string iddocumentotributario)
+        {
+            return _service.ListarMotivoEmisionxIdDocumentoTributarioNC_Combo(iddocumentotributario);
+        }
     }
 }
