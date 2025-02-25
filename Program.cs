@@ -86,6 +86,7 @@ builder.Services.AddHttpClient<IzipayService>();
 builder.Services.AddScoped<VentasService>();
 builder.Services.AddScoped<CorreoService>();
 builder.Services.AddScoped<NotaCreditoService>();
+builder.Services.AddScoped<ImagenPublicitariaService>();
 
 //Data
 builder.Services.AddScoped<MedicoData>();
@@ -125,6 +126,7 @@ builder.Services.AddScoped<NotaCreditoData>();
 builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<MedicoRepository>();
 builder.Services.AddScoped<VentaRepository>();
+builder.Services.AddScoped<ImagenPublicitariaData>();
 
 //Conection
 builder.Services.AddScoped<ServiceConnection>();
@@ -162,6 +164,7 @@ builder.Services.AddScoped<ProcedimientoController>();
 builder.Services.AddScoped<MotivoEmisionController>();
 builder.Services.AddScoped<VentaController>();
 builder.Services.AddScoped<NotaCreditoController>();
+builder.Services.AddScoped<ImagenPublicitariaController>();
 
 var app = builder.Build();
 

@@ -40,5 +40,16 @@ namespace CLINICA_API.Areas.Venta.Controller
         {
             return _service.ObtenerDatosVentaParaNCxIdVenta(idventa);
         }
+        [HttpGet("EnviarJsonVentaNubefact/{idventa}")]
+        public string EnviarJsonVentaNubefact(string idventa)
+        {
+            return _service.EnviarJsonVentaNubefact(idventa);
+        }
+        [HttpPost("EditarTxtGeneradoVenta")]
+        public string EditarTxtGeneradoVenta([FromBody] string jsonidventa)
+        {
+            var rptaregistro = _service.EditarTxtGeneradoVenta(jsonidventa);
+            return rptaregistro;
+        }
     }
 }

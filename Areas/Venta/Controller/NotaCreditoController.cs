@@ -34,7 +34,17 @@ namespace CLINICA_API.Areas.Venta.Controller
         {
             return _service.ObtenerDatosComprobantexIdNotaCredito(idnota);
         }
-
+        [HttpGet("EnviarJsonNotaNubefact/{idnota}")]
+        public string EnviarJsonNotaNubefact(string idnota)
+        {
+            return _service.EnviarJsonNotaNubefact(idnota);
+        }
+        [HttpPost("EditarTxtGeneradoNota")]
+        public string EditarTxtGeneradoNota([FromBody] string jsonidnota)
+        {
+            var rptaregistro = _service.EditarTxtGeneradoNota(jsonidnota);
+            return rptaregistro;
+        }
 
     }
 }
