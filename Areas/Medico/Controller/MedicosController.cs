@@ -42,6 +42,12 @@ public class MedicosController : ControllerBase
         }
 
 
+        [HttpGet("ObtenerImageBanner/")]
+        public async Task<ActionResult<IEnumerable<Banner>>> GetBanner()
+        {
+            var sucursales = await _medicoService.ObtenerBannersync();
+            return Ok(sucursales);
+        }
 
         [HttpGet("buscar/{descripcion}")]
         public async Task<IActionResult> BuscarMedicoPorEspecialidad(string descripcion)

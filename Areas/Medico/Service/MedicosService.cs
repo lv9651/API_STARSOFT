@@ -25,6 +25,12 @@ namespace SISLAB_API.Areas.Maestros.Services
             return await _medicoRepository.ObtenerSucursalesAsync();
         }
 
+
+
+        public async Task<IEnumerable<Banner>> ObtenerBannersync()
+        {
+            return await _medicoRepository.ObtenerBannerAsync();
+        }
         public async Task<IEnumerable<Med_bus>> BuscarMedicoPorEspecialidadAsync(string descripcion)
         {
             return await _medicoRepository.BuscarMedicoPorEspecialidadAsync(descripcion);

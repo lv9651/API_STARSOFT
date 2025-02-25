@@ -69,6 +69,26 @@ GROUP BY med_esp.descripcion";
         return especialidades;  // Retornar la lista de especialidades
     }
 
+    public async Task<IEnumerable<Banner>> ObtenerBannerAsync()
+    {
+        var especialidades = new List<Banner>();
+
+        // Consulta SQL adaptada para SQL Server
+        string query = @"select imagenbyte  from General.ImagenPublicitaria";
+
+        // Usando Dapper para ejecutar la consulta y mapear los resultados
+        using (var connection = new SqlConnection(_connectionString))  // Usando SqlConnection para SQL Server
+        {
+            await connection.OpenAsync();
+            var result = await connection.QueryAsync<Banner>(query);  // Dapper ejecutará la consulta
+
+            especialidades = result.AsList();  // Convertir el resultado a una lista
+        }
+
+        return especialidades;  // Retornar la lista de especialidades
+    }
+
+
 
 
     public async Task<IEnumerable<Med_bus>> BuscarMedicoPorEspecialidadAsync(string descripcionEspecialidad)
