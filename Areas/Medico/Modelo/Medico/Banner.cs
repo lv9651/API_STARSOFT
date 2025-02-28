@@ -4,7 +4,8 @@
     {
         
         public byte[] imagenbyte { get; set; }
-    
+        public string rutaurl { get; set; }
+
     }
 }
 
