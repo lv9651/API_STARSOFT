@@ -16,7 +16,7 @@ namespace CLINICA_API.Areas.General.Data
         {
             var parameters = new DynamicParameters();
             parameters.Add("@idempresa", idempresa);
-            return _connection.MetodoDatatabletostringsql("Clinica.sp_listar_sucursalxidempresa_combo", parameters);
+            return _connection.MetodoDatatabletostringsql("General.sp_listar_sucursalxidempresa_combo", parameters);
         }
         public MensajeJson ListarSucuralxFiltro(string filtro)
         {
