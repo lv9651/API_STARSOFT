@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using YourNamespace.Models;
+using static System.Net.WebRequestMethods;
 
 namespace YourNamespace.Services
 {
@@ -45,14 +46,14 @@ namespace YourNamespace.Services
                     {
                         transactionId = request.transactionId, // Usar el transactionId generado
                         action = "pay", // Acción de pago
-                        merchantCode = "4007701",
+                        merchantCode = "4079862",
                         order = new
                         {
                             orderNumber = request.OrderNumber, // Número de pedido
                             currency = "PEN", // Moneda
                             amount = request.Amount, // Monto total
                             processType = "AT", // Tipo de procesamiento
-                            merchantBuyerId = "4007701",
+                            merchantBuyerId = "4079862",
                             payMethod = "CARD,QR", // Métodos de pago
                             dateTimeTransaction = DateTime.Now.ToString("yyyyMMddHHmmssfff") // Fecha y hora de la transacción
                         },
@@ -87,15 +88,16 @@ namespace YourNamespace.Services
                 var bodyObject = new
                 {
                     requestSource = "ECOMMERCE", // Valor fijo
-                    merchantCode = "4007701",
-                    //4079862
+                    merchantCode = "4079862",
+                    //4007701
+
 
                     orderNumber = request.OrderNumber, // El número de pedido
-                    publicKey = "VErethUtraQuxas57wuMuquprADrAHAb",
-                    
+                    publicKey = "ZWqVgTV2MZ1HsssPwlEnBbapIuT9B1Q8",
 
 
-                    //ZWqVgTV2MZ1HsssPwlEnBbapIuT9B1Q8
+
+                    //VErethUtraQuxas57wuMuquprADrAHAb
 
                     amount = request.Amount
                 };
@@ -107,7 +109,11 @@ namespace YourNamespace.Services
                 var httpRequest = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri("https://sandbox-api-pw.izipay.pe/security/v1/Token/Generate"),
+                    RequestUri = new Uri("https://api-pw.izipay.pe/security/v1/Token/Generate"),
+
+                    
+
+                    //https://sandbox-api-pw.izipay.pe/security/v1/Token/Generate
                     Headers =
                     {
                         { "transactionId", transactionId },  // Incluye el transactionId en los headers
