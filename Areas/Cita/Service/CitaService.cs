@@ -233,5 +233,9 @@ namespace CLINICA_API.Areas.Cita.Service
         {
             return JsonConvert.SerializeObject(_data.EliminarReceta(idreceta));
         }
+        public string ListarInsumoxFiltro(string filtro)
+        {
+            return JsonConvert.SerializeObject(_data.ListarInsumoxFiltro(filtro));
+        }
     }
 }

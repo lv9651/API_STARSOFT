@@ -117,5 +117,10 @@ namespace CLINICA_API.Areas.Cita.Controller
             var rptaregistro = _service.EliminarReceta(idreceta);
             return rptaregistro;
         }
+        [HttpGet("ListarInsumoxFiltro")]
+        public string ListarInsumoxFiltro(string filtro = "")
+        {
+            return _service.ListarInsumoxFiltro(filtro);
+        }
     }
 }

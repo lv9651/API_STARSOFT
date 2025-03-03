@@ -131,5 +131,11 @@ namespace CLINICA_API.Areas.Cita.Data
             parameters.Add("@idreceta", idreceta);
             return _connection.MetodoRespuestasql("Citas.sp_eliminar_receta", parameters, 50);
         }
+        public MensajeJson ListarInsumoxFiltro(string filtro)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@filtro", filtro);
+            return _connection.MetodoDatatabletostringsql("Clinica.sp_listar_insumosxfiltro", parameters, ServiceConnection.TipoConexion.SISLAB);
+        }
     }
 }
