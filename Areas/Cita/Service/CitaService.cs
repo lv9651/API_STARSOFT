@@ -27,15 +27,18 @@ namespace CLINICA_API.Areas.Cita.Service
             {
                 if (dtCita.Rows.Count > 0)
                 {
-                    Dictionary<string, string?> dIdPaciente = new();
+                    Dictionary<string, string[]> dIdPaciente = new();
                     foreach (DataRow row in dtCita.Rows)
                     {
                         //Paciente
                         string? idpacientebuscar = row["idpaciente"].ToString();
                         string? nombrepaciente = "";
+                        string? telefono = "";
                         if (dIdPaciente.ContainsKey(idpacientebuscar))
                         {
-                            nombrepaciente = dIdPaciente.GetValueOrDefault(idpacientebuscar);
+                            string[] aDatosPaciente = dIdPaciente.GetValueOrDefault(idpacientebuscar);
+                            nombrepaciente = aDatosPaciente[0];
+                            telefono = aDatosPaciente[1];
                         }
                         else
                         {
@@ -45,12 +48,17 @@ namespace CLINICA_API.Areas.Cita.Service
                             if (dtPaciente != null)
                                 if (dtPaciente.Rows.Count > 0)
                                 {
+                                    string[] aDatosPaciente = new string[2];
                                     nombrepaciente = dtPaciente.Rows[0]["paciente"].ToString();
-                                    dIdPaciente.Add(idpacientebuscar, nombrepaciente);
+                                    telefono = dtPaciente.Rows[0]["telefono"].ToString();
+                                    aDatosPaciente[0] = nombrepaciente;
+                                    aDatosPaciente[1] = telefono;
+                                    dIdPaciente.Add(idpacientebuscar, aDatosPaciente);
                                 }
                         }
 
                         row["paciente"] = nombrepaciente;
+                        row["telefono"] = telefono;
                     }
                 }
             }
