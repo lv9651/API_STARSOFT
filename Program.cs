@@ -17,6 +17,9 @@ using CLINICA_API.Areas.Procedimiento.Service;
 using CLINICA_API.Areas.Producto.Controller;
 using CLINICA_API.Areas.Producto.Data;
 using CLINICA_API.Areas.Producto.Service;
+using CLINICA_API.Areas.Reporte.Controller;
+using CLINICA_API.Areas.Reporte.Data;
+using CLINICA_API.Areas.Reporte.Service;
 using CLINICA_API.Areas.Usuario.Controller;
 using CLINICA_API.Areas.Usuario.Data;
 using CLINICA_API.Areas.Usuario.Service;
@@ -87,6 +90,7 @@ builder.Services.AddScoped<VentasService>();
 builder.Services.AddScoped<CorreoService>();
 builder.Services.AddScoped<NotaCreditoService>();
 builder.Services.AddScoped<ImagenPublicitariaService>();
+builder.Services.AddScoped<ReporteService>();
 
 //Data
 builder.Services.AddScoped<MedicoData>();
@@ -127,6 +131,7 @@ builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<MedicoRepository>();
 builder.Services.AddScoped<VentaRepository>();
 builder.Services.AddScoped<ImagenPublicitariaData>();
+builder.Services.AddScoped<ReporteData>();
 
 //Conection
 builder.Services.AddScoped<ServiceConnection>();
@@ -165,6 +170,7 @@ builder.Services.AddScoped<MotivoEmisionController>();
 builder.Services.AddScoped<VentaController>();
 builder.Services.AddScoped<NotaCreditoController>();
 builder.Services.AddScoped<ImagenPublicitariaController>();
+builder.Services.AddScoped<ReporteController>();
 
 var app = builder.Build();
 

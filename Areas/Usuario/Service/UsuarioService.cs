@@ -29,5 +29,9 @@ namespace CLINICA_API.Areas.Usuario.Service
         {
             return JsonConvert.SerializeObject(_data.ListarRolParaUsuario());
         }
+        public string ListarUsuariosxFiltro_Modal(string filtro)
+        {
+            return JsonConvert.SerializeObject(_data.ListarUsuariosxFiltro_Modal(filtro));
+        }
     }
 }

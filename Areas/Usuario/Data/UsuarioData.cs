@@ -38,5 +38,11 @@ namespace CLINICA_API.Areas.Usuario.Data
             var parameters = new DynamicParameters();
             return _connection.MetodoDatatabletostringsql("General.sp_listar_rolparausuario", parameters);
         }
+        public MensajeJson ListarUsuariosxFiltro_Modal(string filtro)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@filtro", filtro);
+            return _connection.MetodoDatatabletostringsql("General.sp_listar_usuariosxfiltro_modal", parameters);
+        }
     }
 }

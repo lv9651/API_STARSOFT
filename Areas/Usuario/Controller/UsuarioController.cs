@@ -39,5 +39,10 @@ namespace CLINICA_API.Areas.Usuario.Controller
         {
             return _service.ListarRolParaUsuario();
         }
+        [HttpGet("ListarUsuariosxFiltro_Modal")]
+        public string ListarUsuariosxFiltro_Modal(string filtro = "")
+        {
+            return _service.ListarUsuariosxFiltro_Modal(filtro);
+        }
     }
 }
