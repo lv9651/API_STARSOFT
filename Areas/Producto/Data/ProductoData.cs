@@ -51,5 +51,13 @@ namespace CLINICA_API.Areas.Producto.Data
             parameters.Add("@idtipoproducto", idtipoproducto);
             return _connection.MetodoDatatabletostringsql("Comercial.sp_listar_precioproductoxidlistaprecioxidtipoproducto_combo", parameters);
         }
+        public MensajeJson ListarProductoXIdListaPrecioxIdTipoProducto_Modal(string idlistaprecio, string idtipoproducto, string descripcion)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@idlistaprecio", idlistaprecio);
+            parameters.Add("@idtipoproducto", idtipoproducto);
+            parameters.Add("@descripcion", descripcion);
+            return _connection.MetodoDatatabletostringsql("Comercial.sp_listar_precioproductoxidlistaprecioxidtipoproducto_modal", parameters);
+        }
     }
 }

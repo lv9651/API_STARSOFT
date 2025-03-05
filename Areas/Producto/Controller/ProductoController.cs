@@ -45,5 +45,10 @@ namespace CLINICA_API.Areas.Producto.Controller
         {
             return _service.ListarProductoXIdListaPrecioxIdTipoProducto_Combo(idlistaprecio, idtipoproducto);
         }
+        [HttpGet("ListarProductoXIdListaPrecioxIdTipoProducto_Modal")]
+        public string ListarProductoXIdListaPrecioxIdTipoProducto_Modal(string idlistaprecio, string idtipoproducto, string descripcion = "")
+        {
+            return _service.ListarProductoXIdListaPrecioxIdTipoProducto_Modal(idlistaprecio, idtipoproducto, descripcion);
+        }
     }
 }

@@ -35,5 +35,9 @@ namespace CLINICA_API.Areas.Producto.Service
         {
             return JsonConvert.SerializeObject(_data.ListarProductoXIdListaPrecioxIdTipoProducto_Combo(idlistaprecio, idtipoproducto));
         }
+        public string ListarProductoXIdListaPrecioxIdTipoProducto_Modal(string idlistaprecio, string idtipoproducto, string descripcion)
+        {
+            return JsonConvert.SerializeObject(_data.ListarProductoXIdListaPrecioxIdTipoProducto_Modal(idlistaprecio, idtipoproducto, descripcion));
+        }
     }
 }
