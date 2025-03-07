@@ -20,5 +20,21 @@ namespace CLINICA_API.Areas.Reporte.Data
             parameters.Add("@fecha", fecha);
             return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_cuadrecaja", parameters);
         }
+        public MensajeJson ListarProcedimiento(string fechainicio, string fechafin, string idsucursal)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@fechainicio", fechainicio);
+            parameters.Add("@fechafin", fechafin);
+            parameters.Add("@idsucursal", idsucursal);
+            return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_procedimientoxfiltro", parameters);
+        }
+        public MensajeJson ListarNumeroConsultas(string fechainicio, string fechafin, string idmedico)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@fechainicio", fechainicio);
+            parameters.Add("@fechafin", fechafin);
+            parameters.Add("@idmedico", idmedico);
+            return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_nroconsultas", parameters);
+        }
     }
 }

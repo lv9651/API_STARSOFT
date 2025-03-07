@@ -1,4 +1,5 @@
-﻿using CLINICA_API.Areas.General.Data;
+﻿using CLINICA_API.Areas.Cita.Data;
+using CLINICA_API.Areas.General.Data;
 using CLINICA_API.Areas.Reporte.Data;
 using CLINICA_API.Modelo;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace CLINICA_API.Areas.Reporte.Service
     {
         private readonly ReporteData _data;
         private readonly ClienteData _dataCliente;
-        public ReporteService(ReporteData data, ClienteData dataCliente)
+        private readonly PacienteData _dataPaciente;
+        public ReporteService(ReporteData data, ClienteData dataCliente, PacienteData dataPaciente)
         {
             _data = data;
             _dataCliente = dataCliente;
+            _dataPaciente = dataPaciente;
         }
 
         public string ListarCuadreCaja(string idusuario, string idsucursal, string fecha)
@@ -53,6 +56,47 @@ namespace CLINICA_API.Areas.Reporte.Service
                 }
             }
             return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtCuadreCaja)));
+        }
+        public string ListarProcedimiento(string fechainicio, string fechafin, string idsucursal)
+        {
+            var msJson = _data.ListarProcedimiento(fechainicio, fechafin, idsucursal);
+            DataTable dtProcedimiento = new DataTable();
+            dtProcedimiento = JsonConvert.DeserializeObject<DataTable>(msJson.objeto.ToString());
+            if (dtProcedimiento != null)
+            {
+                if (dtProcedimiento.Rows.Count > 0)
+                {
+                    Dictionary<string, string?> dIdPaciente = new();
+                    foreach (DataRow row in dtProcedimiento.Rows)
+                    {
+                        string? idpacientebuscar = row["idpaciente"].ToString();
+                        string? nombrepaciente = "";
+                        if (dIdPaciente.ContainsKey(idpacientebuscar))
+                        {
+                            nombrepaciente = dIdPaciente.GetValueOrDefault(idpacientebuscar);
+                        }
+                        else
+                        {
+                            var msJsonCliente = _dataPaciente.ObtenerPacientexIdPaciente(idpacientebuscar);
+                            DataTable dtCliente = new DataTable();
+                            dtCliente = JsonConvert.DeserializeObject<DataTable>(msJsonCliente.objeto.ToString());
+                            if (dtCliente != null)
+                                if (dtCliente.Rows.Count > 0)
+                                {
+                                    nombrepaciente = dtCliente.Rows[0]["paciente"].ToString();
+                                    dIdPaciente.Add(idpacientebuscar, nombrepaciente);
+                                }
+                        }
+
+                        row["paciente"] = nombrepaciente;
+                    }
+                }
+            }
+            return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtProcedimiento)));
+        }
+        public string ListarNumeroConsultas(string fechainicio, string fechafin, string idmedico)
+        {
+            return JsonConvert.SerializeObject(_data.ListarNumeroConsultas(fechainicio, fechafin, idmedico));
         }
     }
 }

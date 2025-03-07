@@ -18,5 +18,15 @@ namespace CLINICA_API.Areas.Reporte.Controller
         {
             return _service.ListarCuadreCaja(idusuario, idsucursal, fecha);
         }
+        [HttpGet("ListarProcedimiento")]
+        public string ListarProcedimiento(string fechainicio = "", string fechafin = "", string idsucursal = "")
+        {
+            return _service.ListarProcedimiento(fechainicio, fechafin, idsucursal);
+        }
+        [HttpGet("ListarNumeroConsultas")]
+        public string ListarNumeroConsultas(string fechainicio = "", string fechafin = "", string idmedico = "")
+        {
+            return _service.ListarNumeroConsultas(fechainicio, fechafin, idmedico);
+        }
     }
 }
