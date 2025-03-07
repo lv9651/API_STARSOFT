@@ -137,5 +137,11 @@ namespace CLINICA_API.Areas.Cita.Data
             parameters.Add("@filtro", filtro);
             return _connection.MetodoDatatabletostringsql("Clinica.sp_listar_insumosxfiltro", parameters, ServiceConnection.TipoConexion.SISLAB);
         }
+        public MensajeJson EditarHistorialClinico(string jsonhistorialclinico)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@jsonhistorialclinico", jsonhistorialclinico);
+            return _connection.MetodoRespuestasql("Citas.sp_editar_historialclinicoxidpaciente", parameters, 50);
+        }
     }
 }

@@ -172,6 +172,16 @@ namespace CLINICA_API.Areas.Cita.Service
                                 dtHistorialClinico.Rows[0]["apoderado"] = dtApoderado.Rows[0]["cliente"].ToString();
                             }
                     }
+
+                    var msJsonPaciente = _dataPaciente.ObtenerPacientexIdPaciente(dtHistorialClinico.Rows[0]["idpaciente"].ToString());
+                    DataTable dtPaciente = new DataTable();
+                    dtPaciente = JsonConvert.DeserializeObject<DataTable>(msJsonPaciente.objeto.ToString());
+                    if (dtPaciente != null)
+                        if (dtPaciente.Rows.Count > 0)
+                        {
+                            dtHistorialClinico.Rows[0]["documentopaciente"] = dtPaciente.Rows[0]["numdocumento"].ToString();
+                            dtHistorialClinico.Rows[0]["paciente"] = dtPaciente.Rows[0]["paciente"].ToString();
+                        }
                 }
             }
             return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtHistorialClinico)));
@@ -244,6 +254,10 @@ namespace CLINICA_API.Areas.Cita.Service
         public string ListarInsumoxFiltro(string filtro)
         {
             return JsonConvert.SerializeObject(_data.ListarInsumoxFiltro(filtro));
+        }
+        public string EditarHistorialClinico(string jsonhistorialclinico)
+        {
+            return JsonConvert.SerializeObject(_data.EditarHistorialClinico(jsonhistorialclinico));
         }
     }
 }

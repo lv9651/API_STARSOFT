@@ -122,5 +122,11 @@ namespace CLINICA_API.Areas.Cita.Controller
         {
             return _service.ListarInsumoxFiltro(filtro);
         }
+        [HttpPost("EditarHistorialClinico")]
+        public string EditarHistorialClinico([FromBody] string jsonhistorialclinico)
+        {
+            var rptaregistro = _service.EditarHistorialClinico(jsonhistorialclinico);
+            return rptaregistro;
+        }
     }
 }
