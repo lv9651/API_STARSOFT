@@ -17,5 +17,23 @@ namespace CLINICA_API.Areas.Cita.Data
             var parameters = new DynamicParameters();
             return _connection.MetodoDatatabletostringsql("Citas.sp_listar_diagnostico_combo", parameters);
         }
+        public MensajeJson ListarDiagnosticoxFiltro(string filtro)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@filtro", filtro);
+            return _connection.MetodoDatatabletostringsql("Citas.sp_listar_diagnosticoxfiltro", parameters);
+        }
+        public MensajeJson ObtenerDiagnosticoxIdDiagnostico(string iddiagnostico)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@iddiagnostico", iddiagnostico);
+            return _connection.MetodoDatatabletostringsql("Citas.sp_obtener_diagnosticoxiddiagnostico", parameters);
+        }
+        public MensajeJson GuardarEditarDiagnostico(string jsondiagnostico)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@jsondiagnostico", jsondiagnostico);
+            return _connection.MetodoRespuestasql("Citas.sp_guardareditar_diagnostico", parameters, 50);
+        }
     }
 }

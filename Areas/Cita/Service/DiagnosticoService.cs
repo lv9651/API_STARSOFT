@@ -14,5 +14,17 @@ namespace CLINICA_API.Areas.Cita.Service
         {
             return JsonConvert.SerializeObject(_data.ListarDiagnostico_Combo());
         }
+        public string ListarDiagnosticoxFiltro(string filtro)
+        {
+            return JsonConvert.SerializeObject(_data.ListarDiagnosticoxFiltro(filtro));
+        }
+        public string ObtenerDiagnosticoxIdDiagnostico(string iddiagnostico)
+        {
+            return JsonConvert.SerializeObject(_data.ObtenerDiagnosticoxIdDiagnostico(iddiagnostico));
+        }
+        public string GuardarEditarDiagnostico(string jsondiagnostico)
+        {
+            return JsonConvert.SerializeObject(_data.GuardarEditarDiagnostico(jsondiagnostico));
+        }
     }
 }

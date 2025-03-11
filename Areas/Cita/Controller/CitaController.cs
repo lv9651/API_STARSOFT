@@ -128,5 +128,10 @@ namespace CLINICA_API.Areas.Cita.Controller
             var rptaregistro = _service.EditarHistorialClinico(jsonhistorialclinico);
             return rptaregistro;
         }
+        [HttpGet("ObtenerHistorialClinico_ModalxIdPaciente/{idpaciente}/{idcita}")]
+        public string ObtenerHistorialClinico_ModalxIdPaciente(string idpaciente, string idcita)
+        {
+            return _service.ObtenerHistorialClinico_ModalxIdPaciente(idpaciente, idcita);
+        }
     }
 }

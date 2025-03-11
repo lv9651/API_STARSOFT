@@ -259,5 +259,27 @@ namespace CLINICA_API.Areas.Cita.Service
         {
             return JsonConvert.SerializeObject(_data.EditarHistorialClinico(jsonhistorialclinico));
         }
+        public string ObtenerHistorialClinico_ModalxIdPaciente(string idpaciente, string idcita)
+        {
+            MensajeJson msJson = _data.ObtenerHistorialClinico_ModalxIdPaciente(idpaciente, idcita);
+            DataTable dtHistorialClinico = new DataTable();
+            dtHistorialClinico = JsonConvert.DeserializeObject<DataTable>(msJson.objeto.ToString());
+            if (dtHistorialClinico != null)
+            {
+                if (dtHistorialClinico.Rows.Count > 0)
+                {
+                    var msJsonPaciente = _dataPaciente.ObtenerPacientexIdPaciente(dtHistorialClinico.Rows[0]["idpaciente"].ToString());
+                    DataTable dtPaciente = new DataTable();
+                    dtPaciente = JsonConvert.DeserializeObject<DataTable>(msJsonPaciente.objeto.ToString());
+                    if (dtPaciente != null)
+                        if (dtPaciente.Rows.Count > 0)
+                        {
+                            dtHistorialClinico.Rows[0]["documentopaciente"] = dtPaciente.Rows[0]["numdocumento"].ToString();
+                            dtHistorialClinico.Rows[0]["paciente"] = dtPaciente.Rows[0]["paciente"].ToString();
+                        }
+                }
+            }
+            return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtHistorialClinico)));
+        }
     }
 }

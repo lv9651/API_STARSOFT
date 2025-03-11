@@ -143,5 +143,12 @@ namespace CLINICA_API.Areas.Cita.Data
             parameters.Add("@jsonhistorialclinico", jsonhistorialclinico);
             return _connection.MetodoRespuestasql("Citas.sp_editar_historialclinicoxidpaciente", parameters, 50);
         }
+        public MensajeJson ObtenerHistorialClinico_ModalxIdPaciente(string idpaciente, string idcita)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@idpaciente", idpaciente);
+            parameters.Add("@idcita", idcita);
+            return _connection.MetodoDatatabletostringsql("Citas.sp_obtener_historialclinicoxidpaciente_modal", parameters);
+        }
     }
 }

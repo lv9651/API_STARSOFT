@@ -18,5 +18,21 @@ namespace CLINICA_API.Areas.Cita.Controller
         {
             return _service.ListarDiagnostico_Combo();
         }
+        [HttpGet("ListarDiagnosticoxFiltro")]
+        public string ListarDiagnosticoxFiltro(string filtro = "")
+        {
+            return _service.ListarDiagnosticoxFiltro(filtro);
+        }
+        [HttpGet("ObtenerDiagnosticoxIdDiagnostico/{iddiagnostico}")]
+        public string ObtenerDiagnosticoxIdDiagnostico(string iddiagnostico)
+        {
+            return _service.ObtenerDiagnosticoxIdDiagnostico(iddiagnostico);
+        }
+        [HttpPost("GuardarEditarDiagnostico")]
+        public string GuardarEditarDiagnostico([FromBody] string jsondiagnostico)
+        {
+            var rptaregistro = _service.GuardarEditarDiagnostico(jsondiagnostico);
+            return rptaregistro;
+        }
     }
 }
