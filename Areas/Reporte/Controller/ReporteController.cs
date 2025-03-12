@@ -28,5 +28,10 @@ namespace CLINICA_API.Areas.Reporte.Controller
         {
             return _service.ListarNumeroConsultas(fechainicio, fechafin, idmedico);
         }
+        [HttpGet("ListarVentasDetallado")]
+        public string ListarVentasDetallado(string fechainicio = "", string fechafin = "", string idsucursal = "", string comprobante = "")
+        {
+            return _service.ListarVentasDetallado(fechainicio, fechafin, idsucursal, comprobante);
+        }
     }
 }

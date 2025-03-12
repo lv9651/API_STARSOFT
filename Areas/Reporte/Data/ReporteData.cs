@@ -36,5 +36,14 @@ namespace CLINICA_API.Areas.Reporte.Data
             parameters.Add("@idmedico", idmedico);
             return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_nroconsultas", parameters);
         }
+        public MensajeJson ListarVentasDetallado(string fechainicio, string fechafin, string idsucursal, string comprobante)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@fechainicio", fechainicio);
+            parameters.Add("@fechafin", fechafin);
+            parameters.Add("@idsucursal", idsucursal);
+            parameters.Add("@comprobante", comprobante);
+            return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_ventadetallado", parameters);
+        }
     }
 }

@@ -98,5 +98,81 @@ namespace CLINICA_API.Areas.Reporte.Service
         {
             return JsonConvert.SerializeObject(_data.ListarNumeroConsultas(fechainicio, fechafin, idmedico));
         }
+        public string ListarVentasDetallado(string fechainicio, string fechafin, string idsucursal, string comprobante)
+        {
+            var msJson = _data.ListarVentasDetallado(fechainicio, fechafin, idsucursal, comprobante);
+            DataTable dtVentasDetallado = new DataTable();
+            dtVentasDetallado = JsonConvert.DeserializeObject<DataTable>(msJson.objeto.ToString());
+            if (dtVentasDetallado != null)
+            {
+                if (dtVentasDetallado.Rows.Count > 0)
+                {
+                    Dictionary<string, string[]> dIdPaciente = new();
+                    Dictionary<string, string[]> dIdCliente = new();
+                    foreach (DataRow row in dtVentasDetallado.Rows)
+                    {
+                        //Paciente
+                        string? idpacientebuscar = row["idpaciente"].ToString();
+                        string? documentopaciente = "";
+                        string? nombrepaciente = "";
+                        if (dIdPaciente.ContainsKey(idpacientebuscar))
+                        {
+                            string[] aDatosPaciente = dIdPaciente.GetValueOrDefault(idpacientebuscar);
+                            documentopaciente = aDatosPaciente[0];
+                            nombrepaciente = aDatosPaciente[1];
+                        }
+                        else
+                        {
+                            var msJsonPaciente = _dataPaciente.ObtenerPacientexIdPaciente(idpacientebuscar);
+                            DataTable dtPaciente = new DataTable();
+                            dtPaciente = JsonConvert.DeserializeObject<DataTable>(msJsonPaciente.objeto.ToString());
+                            if (dtPaciente != null)
+                                if (dtPaciente.Rows.Count > 0)
+                                {
+                                    string[] aDatosPaciente = new string[2];
+                                    documentopaciente = dtPaciente.Rows[0]["numdocumento"].ToString();
+                                    nombrepaciente = dtPaciente.Rows[0]["paciente"].ToString();
+                                    aDatosPaciente[0] = documentopaciente;
+                                    aDatosPaciente[1] = nombrepaciente;
+                                    dIdPaciente.Add(idpacientebuscar, aDatosPaciente);
+                                }
+                        }
+
+                        //Cliente
+                        string? idclientebuscar = row["idcliente"].ToString();
+                        string? documentocliente = "";
+                        string? nombrecliente = "";
+                        if (dIdCliente.ContainsKey(idclientebuscar))
+                        {
+                            string[] aDatosCliente = dIdCliente.GetValueOrDefault(idclientebuscar);
+                            documentocliente = aDatosCliente[0];
+                            nombrecliente = aDatosCliente[1];
+                        }
+                        else
+                        {
+                            var msJsonCliente = _dataCliente.ObtenerClientexIdCliente(idclientebuscar);
+                            DataTable dtCliente = new DataTable();
+                            dtCliente = JsonConvert.DeserializeObject<DataTable>(msJsonCliente.objeto.ToString());
+                            if (dtCliente != null)
+                                if (dtCliente.Rows.Count > 0)
+                                {
+                                    string[] aDatosCliente = new string[2];
+                                    documentocliente = dtCliente.Rows[0]["numdocumento"].ToString();
+                                    nombrecliente = dtCliente.Rows[0]["cliente"].ToString();
+                                    aDatosCliente[0] = documentocliente;
+                                    aDatosCliente[1] = nombrecliente;
+                                    dIdCliente.Add(idclientebuscar, aDatosCliente);
+                                }
+                        }
+
+                        row["documentopaciente"] = documentopaciente;
+                        row["paciente"] = nombrepaciente;
+                        row["documentocliente"] = documentocliente;
+                        row["cliente"] = nombrecliente;
+                    }
+                }
+            }
+            return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtVentasDetallado)));
+        }
     }
 }
