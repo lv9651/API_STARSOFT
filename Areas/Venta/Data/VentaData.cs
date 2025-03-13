@@ -176,5 +176,28 @@ namespace CLINICA_API.Areas.Venta.Data
             parameters.Add("@jsonidventa", jsonidventa);
             return _connection.MetodoRespuestasql("Ventas.sp_editar_txtgeneradoventa", parameters, 50);
         }
+        public MensajeJson ObtenerDatosVentaPagoxIdVenta(string idventa)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@idventa", idventa);
+            return _connection.MetodoDatatabletostringsql("Ventas.sp_obtener_datosventapagosxidventa", parameters);
+        }
+        public MensajeJson EditarVentaPago(string jsonventapago)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@jsonventapago", jsonventapago);
+            return _connection.MetodoRespuestasql("Ventas.sp_editar_ventapago", parameters, 50);
+        }
+        public MensajeJson ListarVentasVentaPago_Modal(string fechainicio, string fechafin, string idsucursal, string comprobante)
+        {
+            fechainicio = fechainicio.Replace("-", "/");
+            fechafin = fechafin.Replace("-", "/");
+            var parameters = new DynamicParameters();
+            parameters.Add("@fechainicio", fechainicio);
+            parameters.Add("@fechafin", fechafin);
+            parameters.Add("@idsucursal", idsucursal);
+            parameters.Add("@comprobante", comprobante);
+            return _connection.MetodoDatatabletostringsql("Ventas.sp_listar_ventasventapagoxfiltro", parameters);
+        }
     }
 }

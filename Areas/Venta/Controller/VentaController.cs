@@ -51,5 +51,21 @@ namespace CLINICA_API.Areas.Venta.Controller
             var rptaregistro = _service.EditarTxtGeneradoVenta(jsonidventa);
             return rptaregistro;
         }
+        [HttpGet("ObtenerDatosVentaPagoxIdVenta/{idventa}")]
+        public string ObtenerDatosVentaPagoxIdVenta(string idventa)
+        {
+            return _service.ObtenerDatosVentaPagoxIdVenta(idventa);
+        }
+        [HttpPost("EditarVentaPago")]
+        public string EditarVentaPago([FromBody] string jsonventapago)
+        {
+            var rptaregistro = _service.EditarVentaPago(jsonventapago);
+            return rptaregistro;
+        }
+        [HttpGet("ListarVentasVentaPago_Modal")]
+        public string ListarVentasVentaPago_Modal(string fechainicio = "", string fechafin = "", string idsucursal = "", string comprobante = "")
+        {
+            return _service.ListarVentasVentaPago_Modal(fechainicio, fechafin, idsucursal, comprobante);
+        }
     }
 }
