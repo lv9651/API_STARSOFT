@@ -12,10 +12,8 @@ namespace CLINICA_API.Areas.General.Data
     public class ClienteData
     {
         private string urlws;
-        //private readonly ServiceConnection _connection;
-        public ClienteData(IConfiguration configuration/*ServiceConnection connection*/)
+        public ClienteData(IConfiguration configuration)
         {
-            //_connection = connection;
             urlws = configuration.GetConnectionString("ConnecionSigeURLWS") + "Clinica/ServiceClinica.svc/";
         }
 
@@ -25,9 +23,6 @@ namespace CLINICA_API.Areas.General.Data
             var json = cliente.DownloadString(urlws + "cliente/obtener_clientexnumdocumento/" + numdocumento);
             var jsonobj = JsonConvert.DeserializeObject(json);
             return new MensajeJson("OK", jsonobj.ToString());
-            //var parameters = new DynamicParameters();
-            //parameters.Add("@numdocumento", numdocumento);
-            //return _connection.MetodoDatatabletostringsql("Clinica.sp_obtener_clientexnumdocumento", parameters, TipoConexion.SIGE);
         }
         public MensajeJson GuardarEditarCliente(string jsoncliente)
         {
@@ -35,18 +30,12 @@ namespace CLINICA_API.Areas.General.Data
             cliente.Headers["Content-Type"] = "application/json";
             var respuesta = cliente.UploadString(urlws + "cliente/registrar_cliente", "POST", jsonenviar);
             return new MensajeJson("OK", respuesta.ToString());
-            //var parameters = new DynamicParameters();
-            //parameters.Add("@jsoncliente", jsoncliente);
-            //return _connection.MetodoRespuestasql("Clinica.sp_registrar_actualizar_cliente", parameters, 50, TipoConexion.SIGE);
         }
         public MensajeJson ObtenerClientexIdCliente(string idcliente)
         {
             var json = cliente.DownloadString(urlws + "cliente/obtener_clientexidcliente/" + idcliente);
             var jsonobj = JsonConvert.DeserializeObject(json);
             return new MensajeJson("OK", jsonobj.ToString());
-            //var parameters = new DynamicParameters();
-            //parameters.Add("@idcliente", idcliente);
-            //return _connection.MetodoDatatabletostringsql("Clinica.sp_obtener_clientexidcliente", parameters, TipoConexion.SIGE);
         }
     }
 }

@@ -11,17 +11,14 @@ namespace CLINICA_API.Areas.General.Helpers
     public class ServiceConnection
     {
         private readonly string? _connection;
-        private readonly string? _connectionSige;
         private readonly string? _connectionSislab;
         public enum TipoConexion
         {
             Clinica,
-            SIGE,
             SISLAB
         }
         public ServiceConnection(IConfiguration configuration) {
             _connection = configuration.GetConnectionString("ConnectionClinica");
-            _connectionSige = configuration.GetConnectionString("ConnectionSige");
             _connectionSislab = configuration.GetConnectionString("ConnectionSislab");
         }
         //Metodo que retorna una tabla
@@ -31,9 +28,7 @@ namespace CLINICA_API.Areas.General.Helpers
             {
                 string conexion = _connection;
                 
-                if(tipoConexion == TipoConexion.SIGE)
-                    conexion = _connectionSige;
-                else if (tipoConexion == TipoConexion.SISLAB)
+                if (tipoConexion == TipoConexion.SISLAB)
                     conexion = _connectionSislab;
 
                 using (var connection = new SqlConnection(conexion))
@@ -81,9 +76,7 @@ namespace CLINICA_API.Areas.General.Helpers
                 string sEstado = "";
                 string conexion = _connection;
 
-                if (tipoConexion == TipoConexion.SIGE)
-                    conexion = _connectionSige;
-                else if (tipoConexion == TipoConexion.SISLAB)
+                if (tipoConexion == TipoConexion.SISLAB)
                     conexion = _connectionSislab;
                 
                 using (var connection = new SqlConnection(conexion))
@@ -151,9 +144,7 @@ namespace CLINICA_API.Areas.General.Helpers
             {
                 string conexion = _connection;
                 
-                if (tipoConexion == TipoConexion.SIGE)
-                    conexion = _connectionSige;
-                else if (tipoConexion == TipoConexion.SISLAB)
+                if (tipoConexion == TipoConexion.SISLAB)
                     conexion = _connectionSislab;
 
                 using (var connection = new SqlConnection(conexion))
