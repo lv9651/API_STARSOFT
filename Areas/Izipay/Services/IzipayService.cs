@@ -89,7 +89,7 @@ namespace YourNamespace.Services
                 {
                     requestSource = "ECOMMERCE", // Valor fijo
                     merchantCode = "4079862",
-                    //4007701
+                    //4079862
 
 
                     orderNumber = request.OrderNumber, // El número de pedido
@@ -111,8 +111,8 @@ namespace YourNamespace.Services
                     Method = HttpMethod.Post,
                     RequestUri = new Uri("https://api-pw.izipay.pe/security/v1/Token/Generate"),
 
-                    
 
+             
                     //https://sandbox-api-pw.izipay.pe/security/v1/Token/Generate
                     Headers =
                     {
