@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 
 using SISLAB_API.Areas.Maestros.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -50,23 +51,27 @@ GROUP BY med_esp.descripcion";
 
 
 
-    public async Task<IEnumerable<Sucursal>> ObtenerSucursalesAsync()
+    public async Task<IEnumerable<Sucursal>> ObtenerSucursalesAsync(string descripcionEspecialidad)
     {
         var especialidades = new List<Sucursal>();
+          string query = "bus_espec";
 
         // Consulta SQL adaptada para SQL Server
-        string query = @"select idsucursal,descripcion from general.sucursal where descripcion like '%vinali%'";
-
-        // Usando Dapper para ejecutar la consulta y mapear los resultados
-        using (var connection = new SqlConnection(_connectionString))  // Usando SqlConnection para SQL Server
+        using (var connection = new SqlConnection(_connectionString))
         {
             await connection.OpenAsync();
-            var result = await connection.QueryAsync<Sucursal>(query);  // Dapper ejecutará la consulta
 
-            especialidades = result.AsList();  // Convertir el resultado a una lista
+            // Ejecutamos el procedimiento almacenado pasando el parámetro 'descripcion'
+            var result = await connection.QueryAsync<Sucursal>(
+            query, // Nombre del procedimiento almacenado
+                new { especialidad = descripcionEspecialidad }, // Parámetro que le pasamos al procedimiento
+                commandType: System.Data.CommandType.StoredProcedure // Especificamos que es un procedimiento almacenado
+            );
+
+            especialidades = result.AsList();  // Convertimos el resultado en una lista
         }
 
-        return especialidades;  // Retornar la lista de especialidades
+        return especialidades;  // Retorn // Retornar la lista de especialidades
     }
 
     public async Task<IEnumerable<Banner>> ObtenerBannerAsync()

@@ -34,12 +34,21 @@ public class MedicosController : ControllerBase
         }
 
 
+
         [HttpGet("buscarSucursal/")]
-        public async Task<ActionResult<IEnumerable<Sucursal>>> GetSucursales()
+        public async Task<ActionResult<IEnumerable<Sucursal>>> GetSucursales(string especialidad)
         {
-            var sucursales = await _medicoService.ObtenerSucursalesAsync();
+            var sucursales = await _medicoService.ObtenerSucursalesAsync(especialidad);
+
+            if (sucursales == null || !sucursales.Any())
+            {
+                return NotFound("No se encontraron sucursales.");
+            }
+
             return Ok(sucursales);
         }
+
+
 
 
         [HttpGet("ObtenerImageBanner/")]
