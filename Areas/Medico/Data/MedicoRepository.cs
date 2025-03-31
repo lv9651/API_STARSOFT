@@ -79,7 +79,7 @@ GROUP BY med_esp.descripcion";
         var especialidades = new List<Banner>();
 
         // Consulta SQL adaptada para SQL Server
-        string query = @"select imagenbyte,rutaurl  from General.ImagenPublicitaria";
+        string query = @"select imagenbyte,rutaurl  from General.ImagenPublicitaria where  idestado=1 ";
 
         // Usando Dapper para ejecutar la consulta y mapear los resultados
         using (var connection = new SqlConnection(_connectionString))  // Usando SqlConnection para SQL Server
