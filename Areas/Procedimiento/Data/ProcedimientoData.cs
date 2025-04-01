@@ -39,5 +39,10 @@ namespace CLINICA_API.Areas.Procedimiento.Data
             parameters.Add("@idprocedimiento", idprocedimiento);
             return _connection.MetodoDatatabletostringsql("Procedimientos.sp_obtener_procedimientoxidprocedimiento_modalprocedimientopaciente", parameters);
         }
+        public MensajeJson ListarTurno_Combo()
+        {
+            var parameters = new DynamicParameters();
+            return _connection.MetodoDatatabletostringsql("Procedimientos.sp_listar_turno_combo", parameters);
+        }
     }
 }

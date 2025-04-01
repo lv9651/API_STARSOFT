@@ -4,6 +4,7 @@ using CLINICA_API.Areas.Reporte.Data;
 using CLINICA_API.Modelo;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using SISLAB_API.Areas.Maestros.Models;
 using System.Data;
 
 namespace CLINICA_API.Areas.Reporte.Service
@@ -173,6 +174,10 @@ namespace CLINICA_API.Areas.Reporte.Service
                 }
             }
             return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtVentasDetallado)));
+        }
+        public string ListarCuadreCajaContabilidad(string idsucursal, string fechainicio, string fechafin)
+        {
+            return JsonConvert.SerializeObject(_data.ListarCuadreCajaContabilidad(idsucursal, fechainicio, fechafin));
         }
     }
 }

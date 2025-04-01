@@ -45,5 +45,13 @@ namespace CLINICA_API.Areas.Reporte.Data
             parameters.Add("@comprobante", comprobante);
             return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_ventadetallado", parameters);
         }
+        public MensajeJson ListarCuadreCajaContabilidad(string idsucursal, string fechainicio, string fechafin)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@idsucursal", idsucursal);
+            parameters.Add("@fechainicio", fechainicio);
+            parameters.Add("@fechafin", fechafin);
+            return _connection.MetodoDatatabletostringsql("Reporte.sp_listar_cuadrecaja_contabilidad", parameters);
+        }
     }
 }

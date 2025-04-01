@@ -173,7 +173,7 @@ namespace CLINICA_API.Areas.Venta.Service
             var msJsonRutaToken = _data.ObtenerRutaTokenSucursalxIdVenta(idventa);
             dtRutaToken = JsonConvert.DeserializeObject<DataTable>(msJsonRutaToken.objeto.ToString());
             string ruta = dtRutaToken.Rows[0]["rutaintegrador"].ToString();//"https://api.nubefact.com/api/v1/3d7b74f1-1187-4fe8-99cb-140e351a7bfe"
-            string token = dtRutaToken.Rows[0]["tokenintegrador"].ToString();//"881d5b1d7f7d486698cbd11a75e64fb2687909684db64dacbab79ab84768eccd";
+            string token = dtRutaToken.Rows[0]["tokenintegrador"].ToString();//"881d5b1d7f7d486698cbd11a75e64fb2687909684db64dacbab79ab84768eccd"
             if (ruta != "1" && token != "1")
             {
                 DataTable dtVentaNubefact = ObtenerDatosVentaNubefact(idventa);

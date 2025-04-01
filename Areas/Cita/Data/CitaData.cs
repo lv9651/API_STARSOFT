@@ -150,5 +150,11 @@ namespace CLINICA_API.Areas.Cita.Data
             parameters.Add("@idcita", idcita);
             return _connection.MetodoDatatabletostringsql("Citas.sp_obtener_historialclinicoxidpaciente_modal", parameters);
         }
+        public MensajeJson GuardarEditarCitaNutricionPsicologia(string jsoncita)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@jsoncita", jsoncita);
+            return _connection.MetodoRespuestasql("Citas.sp_guardar_citanutricionpsicologia", parameters, 50);
+        }
     }
 }

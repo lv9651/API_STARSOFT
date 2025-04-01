@@ -92,6 +92,7 @@ builder.Services.AddScoped<NotaCreditoService>();
 builder.Services.AddScoped<ImagenPublicitariaService>();
 builder.Services.AddScoped<ReporteService>();
 builder.Services.AddScoped<DescuentoService>();
+builder.Services.AddScoped<CuadreCajaService>();
 
 //Data
 builder.Services.AddScoped<MedicoData>();
@@ -134,6 +135,7 @@ builder.Services.AddScoped<VentaRepository>();
 builder.Services.AddScoped<ImagenPublicitariaData>();
 builder.Services.AddScoped<ReporteData>();
 builder.Services.AddScoped<DescuentoData>();
+builder.Services.AddScoped<CuadreCajaData>();
 
 //Conection
 builder.Services.AddScoped<ServiceConnection>();
@@ -174,6 +176,7 @@ builder.Services.AddScoped<NotaCreditoController>();
 builder.Services.AddScoped<ImagenPublicitariaController>();
 builder.Services.AddScoped<ReporteController>();
 builder.Services.AddScoped<DescuentoController>();
+builder.Services.AddScoped<CuadreCajaController>();
 
 var app = builder.Build();
 

@@ -66,5 +66,9 @@ namespace CLINICA_API.Areas.Procedimiento.Service
         {
             return JsonConvert.SerializeObject(_data.ObtenerProcedimientoxIdPaciente_ModalProcedimientoPaciente(idprocedimiento));
         }
+        public string ListarTurno_Combo()
+        {
+            return JsonConvert.SerializeObject(_data.ListarTurno_Combo());
+        }
     }
 }

@@ -34,5 +34,10 @@ namespace CLINICA_API.Areas.Procedimiento.Controller
         {
             return _service.ObtenerProcedimientoxIdPaciente_ModalProcedimientoPaciente(idpaciente);
         }
+        [HttpGet("ListarTurno_Combo")]
+        public string ListarTurno_Combo()
+        {
+            return _service.ListarTurno_Combo();
+        }
     }
 }

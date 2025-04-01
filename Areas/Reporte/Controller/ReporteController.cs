@@ -33,5 +33,10 @@ namespace CLINICA_API.Areas.Reporte.Controller
         {
             return _service.ListarVentasDetallado(fechainicio, fechafin, idsucursal, comprobante);
         }
+        [HttpGet("ListarCuadreCajaContabilidad")]
+        public string ListarCuadreCajaContabilidad(string idsucursal = "", string fechainicio = "", string fechafin = "")
+        {
+            return _service.ListarCuadreCajaContabilidad(idsucursal, fechainicio, fechafin);
+        }
     }
 }

@@ -133,5 +133,11 @@ namespace CLINICA_API.Areas.Cita.Controller
         {
             return _service.ObtenerHistorialClinico_ModalxIdPaciente(idpaciente, idcita);
         }
+        [HttpPost("GuardarEditarCitaNutricionPsicologia")]
+        public string GuardarEditarCitaNutricionPsicologia([FromBody] string jsoncita)
+        {
+            var rptaregistro = _service.GuardarEditarCitaNutricionPsicologia(jsoncita);
+            return rptaregistro;
+        }
     }
 }

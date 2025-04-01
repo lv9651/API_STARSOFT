@@ -281,5 +281,9 @@ namespace CLINICA_API.Areas.Cita.Service
             }
             return JsonConvert.SerializeObject(new MensajeJson("OK", JsonConvert.SerializeObject(dtHistorialClinico)));
         }
+        public string GuardarEditarCitaNutricionPsicologia(string jsoncita)
+        {
+            return JsonConvert.SerializeObject(_data.GuardarEditarCitaNutricionPsicologia(jsoncita));
+        }
     }
 }
