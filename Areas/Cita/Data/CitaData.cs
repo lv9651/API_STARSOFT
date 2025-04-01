@@ -156,5 +156,11 @@ namespace CLINICA_API.Areas.Cita.Data
             parameters.Add("@jsoncita", jsoncita);
             return _connection.MetodoRespuestasql("Citas.sp_guardar_citanutricionpsicologia", parameters, 50);
         }
+        public MensajeJson EstadoAtendida(string jsoncita)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@jsoncita", jsoncita);
+            return _connection.MetodoRespuestasql("Citas.sp_editar_estadocitaatendida", parameters, 50);
+        }
     }
 }

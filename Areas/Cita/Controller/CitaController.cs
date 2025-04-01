@@ -139,5 +139,11 @@ namespace CLINICA_API.Areas.Cita.Controller
             var rptaregistro = _service.GuardarEditarCitaNutricionPsicologia(jsoncita);
             return rptaregistro;
         }
+        [HttpPost("EstadoAtendida")]
+        public string EstadoAtendida([FromBody] string jsoncita)
+        {
+            var rptaregistro = _service.EstadoAtendida(jsoncita);
+            return rptaregistro;
+        }
     }
 }
