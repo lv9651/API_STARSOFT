@@ -289,5 +289,13 @@ namespace CLINICA_API.Areas.Cita.Service
         {
             return JsonConvert.SerializeObject(_data.EstadoAtendida(jsoncita));
         }
+        public string ListarInterconsulta_Combo()
+        {
+            return JsonConvert.SerializeObject(_data.ListarInterconsulta_Combo());
+        }
+        public string ListarProductoxIdTipoProducto_Combo(string idtipoproducto)
+        {
+            return JsonConvert.SerializeObject(_data.ListarProductoxIdTipoProducto_Combo(idtipoproducto));
+        }
     }
 }

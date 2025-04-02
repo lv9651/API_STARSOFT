@@ -145,5 +145,15 @@ namespace CLINICA_API.Areas.Cita.Controller
             var rptaregistro = _service.EstadoAtendida(jsoncita);
             return rptaregistro;
         }
+        [HttpGet("ListarInterconsulta_Combo")]
+        public string ListarInterconsulta_Combo()
+        {
+            return _service.ListarInterconsulta_Combo();
+        }
+        [HttpGet("ListarProductoxIdTipoProducto_Combo/{idtipoproducto}")]
+        public string ListarProductoxIdTipoProducto_Combo(string idtipoproducto)
+        {
+            return _service.ListarProductoxIdTipoProducto_Combo(idtipoproducto);
+        }
     }
 }
