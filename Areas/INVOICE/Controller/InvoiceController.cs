@@ -11,6 +11,36 @@ public class OrdenCompraController : ControllerBase
         _service = service;
     }
 
+
+
+    [HttpGet("por-fecha")]
+    public async Task<IActionResult> ObtenerImportacionesPorFecha(
+        [FromQuery] string fechaInicio,
+        [FromQuery] string fechaFin)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(fechaInicio) || string.IsNullOrWhiteSpace(fechaFin))
+            {
+                return BadRequest("Ambas fechas son requeridas");
+            }
+
+            var resultado = await _service.ObtenerImportacionesPorFechaAsync(fechaInicio, fechaFin);
+            return Ok(resultado);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+        }
+    }
+
+
+
+
     [HttpGet("por-invoice/{invoice}")]
     public async Task<ActionResult<OrdenCompra>> GetPorInvoice(string invoice)
     {

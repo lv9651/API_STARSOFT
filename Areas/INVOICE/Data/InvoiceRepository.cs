@@ -13,6 +13,21 @@ public class InvoiceRepository
     }
 
 
+    public async Task<IEnumerable<Importacion>> ObtenerPorFechaAsync(string fechaInicio, string fechaFin)
+    {
+        using (var connection1 = new SqlConnection(_configuration.GetConnectionString("ConnectionSIGE")))
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@fechainicio", fechaInicio, DbType.String);
+            parameters.Add("@fechafin", fechaFin, DbType.String);
+
+            return await connection1.QueryAsync<Importacion>(
+                "Contabilidad.importaciones",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+        }
+    }
 
     public async Task<OrdenCompra> ObtenerPorInvoiceAsync(string invoice)
     {
