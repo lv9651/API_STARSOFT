@@ -1,5 +1,9 @@
 
 
+using STARSOFT_API.Areas.ORDER_COMPRA.Modelo;
+using TuProyecto.Repositories;
+using TuProyecto.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 //Service
 builder.Services.AddScoped<InvoiceService>();
+builder.Services.AddScoped<ImportacionService>();
 
 
 
@@ -22,6 +27,7 @@ builder.Services.AddScoped<InvoiceService>();
 
 
 builder.Services.AddScoped<InvoiceRepository>();
+builder.Services.AddScoped<ImportacionRepository>();
 
 //Conection
 
