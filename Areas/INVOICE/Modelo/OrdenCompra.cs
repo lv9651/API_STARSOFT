@@ -32,6 +32,7 @@ public class MovimientoContable
 
 public class Detail_Ord_compra
 {
+    public string? codigoorden { get; set; }
     public string? idproducto { get; set; }
     public string? nombre { get; set; }
     public string? cantidad { get; set; }

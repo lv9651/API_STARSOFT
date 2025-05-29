@@ -6,5 +6,6 @@
         public string JsonCaltimereal { get; set; }
         public string JsonDua { get; set; }
         public string JsonDistribucionFinal { get; set; }
+   
     }
 }
