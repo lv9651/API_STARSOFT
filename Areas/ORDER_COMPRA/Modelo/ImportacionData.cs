@@ -58,6 +58,9 @@
         public decimal ADV { get; set; }
         public decimal Handling { get; set; }
         public decimal Gastos_Operativos { get; set; }
+        public decimal gastos_Administrativos { get; set; }
+
+        public decimal Almacenaje { get; set; }
         public decimal Serv_Logistico { get; set; }
         public decimal Otros_Gastos { get; set; }
         public decimal Costo_Total { get; set; }

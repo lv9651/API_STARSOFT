@@ -25,19 +25,19 @@ namespace TuProyecto.Repositories
             var datos = new ImportacionData
             {
                 TablaInvoice = (await connection.QueryAsync<TablaInvoice>(
-                    "SELECT * FROM TablaInvoice WHERE OrdenCompra = @OrdenCompra",
+                    "SELECT * FROM TablaInvoice WHERE OrdenCompra_padre = @OrdenCompra",
                     new { OrdenCompra = ordenCompra })).AsList(),
 
                 TablaCaltimereal = (await connection.QueryAsync<TablaCaltimereal>(
-                    "SELECT * FROM TablaCaltimereal WHERE OrdenCompra = @OrdenCompra",
+                    "SELECT * FROM TablaCaltimereal WHERE OrdenCompra_padre = @OrdenCompra",
                     new { OrdenCompra = ordenCompra })).AsList(),
 
                 TablaDua = (await connection.QueryAsync<TablaDua>(
-                    "SELECT * FROM TablaDua WHERE OrdenCompra = @OrdenCompra",
+                    "SELECT * FROM TablaDua WHERE OrdenCompra_padre = @OrdenCompra",
                     new { OrdenCompra = ordenCompra })).AsList(),
 
                 DistribucionFinal = (await connection.QueryAsync<DistribucionFinal>(
-                    "SELECT * FROM DistribucionFinal WHERE OrdenCompra = @OrdenCompra",
+                    "SELECT * FROM DistribucionFinal WHERE OrdenCompra_padre = @OrdenCompra",
                     new { OrdenCompra = ordenCompra })).AsList(),
             };
 
