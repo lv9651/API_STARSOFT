@@ -40,5 +40,7 @@ public class Detail_Ord_compra
 
      public string? UNIDAD_MEDIDA { get; set; }
     public decimal eur_fob { get; set; }
+    public string? camoneda { get; set; }
+
 
 }

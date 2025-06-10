@@ -65,13 +65,13 @@ public class InvoiceRepository
         // SEGUNDA CONEXIÓN - Solo si obtuvimos una orden de compra válida
         if (!string.IsNullOrEmpty(ordenCompra.CodigoOrdenCompra))
         {
-            using (var connection2 = new SqlConnection(_configuration.GetConnectionString("ConnectionSIGE"))) // Asegúrate de agregar esta cadena de conexión
+            using (var connection2 = new SqlConnection(_configuration.GetConnectionString("ConnectionStarsoft"))) // Asegúrate de agregar esta cadena de conexión
             {
                 await connection2.OpenAsync();
 
                 // Ejecutar el segundo procedimiento almacenado
                 var datosAdicionales = await connection2.QueryAsync<Detail_Ord_compra>(
-                    "sp_OrdenCompra_x_invoice", // Nombre de tu segundo procedimiento
+                    "sp_OrdenCompra_x_invoice_sige", // Nombre de tu segundo procedimiento
                     new { ORDCOMPRA = ordenCompra.CodigoOrdenCompra },
                     commandType: CommandType.StoredProcedure);
 
